@@ -31,7 +31,7 @@ public:
     ///
     ///     character = Character();
     ///
-    Character(); //TODO add initiation position to character constructor
+    explicit Character(ge211::Dims<int> initial_position);
 
     /// Returns the position of the top-left corner of the ball's
     /// "bounding box", meaning the smallest rectangle in which is can
@@ -59,6 +59,6 @@ public:
 
 private:
     float speed;
-
+    ge211::Dims<int> position
 
 };
