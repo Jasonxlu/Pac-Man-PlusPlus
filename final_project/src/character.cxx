@@ -1,4 +1,7 @@
 //
+// Created by Jason L on 5/30/22.
+//
+//
 // Created by thebr on 5/26/2022.
 //
 
@@ -36,6 +39,6 @@ Character
 Character::next(double dt) {
     Character result(*this);
     result.position_ = result.position_ + dt*result.direction_.into<float>()
-            *result.velocity_;
+                                          *result.velocity_;
     return result;
 }
