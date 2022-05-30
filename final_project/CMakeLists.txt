@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.3)
 
 # TODO: Change “game” to the name of your game (no spaces!):
-set(GAME_EXE game)
+set(GAME_EXE Pac-Man++)
 
 project(${GAME_EXE} CXX)
 include(.cs211/cmake/CMakeLists.txt)
@@ -15,7 +15,9 @@ add_program(${GAME_EXE}
         ${MODEL_SRC}
         src/view.cxx
         src/controller.cxx
-        src/main.cxx)
+        src/main.cxx
+        src/pacman.cxx
+        src/character.cxx)
 target_link_libraries(${GAME_EXE} ge211)
 
 add_test_program(model_test
