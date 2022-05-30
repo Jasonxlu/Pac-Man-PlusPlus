@@ -16,7 +16,7 @@
 ///       float y;   // pixel distance from top edge of window
 ///   };
 using Position = ge211::Posn<float>;
-
+using Dimensions = ge211::Dims<int>;
 
 class Character
 {
@@ -31,7 +31,7 @@ public:
     ///
     ///     character = Character();
     ///
-    explicit Character(ge211::Dims<int> initial_position);
+    explicit Character(Position initial_position);
 
     /// Returns the position of the top-left corner of the ball's
     /// "bounding box", meaning the smallest rectangle in which is can
@@ -58,7 +58,7 @@ public:
     Character next(double dt);
 
 private:
-    float speed;
-    ge211::Dims<int> position
+    const float speed_ = 1; //set speed as a constant
+    Position position_;
 
 };
