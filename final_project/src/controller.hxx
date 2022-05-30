@@ -1,6 +1,5 @@
 #pragma once
 
-#include "model.hxx"
 #include "view.hxx"
 
 #include <ge211.hxx>
