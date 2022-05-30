@@ -31,13 +31,8 @@ public:
     ///
     ///     character = Character();
     ///
-    explicit Character(Position initial_position);
-
-    /// Returns the position of the top-left corner of the ball's
-    /// "bounding box", meaning the smallest rectangle in which is can
-    /// be enclosed. This is useful to the UI because sprites are
-    /// positioned based on their top-left corners.
-    Position top_left() const;
+    explicit Character(Position initial_position, float height,
+                       float width, Dimensions direction, float velocity);
 
 
     /// Returns the state of the character after `dt` seconds have passed,
@@ -60,5 +55,8 @@ public:
 private:
     const float speed_ = 1; //set speed as a constant
     Position position_;
-
+    float height_;
+    float width_;
+    Dimensions direction_;
+    float velocity_; //change this to change character velocity
 };

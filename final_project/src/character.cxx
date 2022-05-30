@@ -4,18 +4,17 @@
 
 #include "character.hxx"
 
-Character::Character(Position initial_position) :
-        position_(initial_position)
+Character::Character(Position initial_position, float height, float width,
+                     Dimensions direction, float velocity) :
+        position_(initial_position),
+        height_(height),
+        width_(width),
+        direction_(direction),
+        velocity_(velocity)
 {
 
 
 }
-
-/// Returns the position of the top-left corner of the ball's
-/// "bounding box", meaning the smallest rectangle in which is can
-/// be enclosed. This is useful to the UI because sprites are
-/// positioned based on their top-left corners.
-Character::Position top_left();
 
 
 /// Returns the state of the character after `dt` seconds have passed,
@@ -33,4 +32,10 @@ Character::Position top_left();
 ///
 ///    character = character.next();
 ///
-Character next(double dt);
+Character
+Character::next(double dt) {
+    Character result(*this);
+    result.position_ = result.position_ + dt*result.direction_.into<float>()
+            *result.velocity_;
+    return result;
+}
