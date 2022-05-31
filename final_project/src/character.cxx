@@ -35,10 +35,35 @@ Character::Character(Position initial_position, float height, float width,
 ///
 ///    character = character.next();
 ///
+
+//Brennan comment: I don't know if we need this
+/*
 Character
 Character::next(double dt) {
     Character result(*this);
     result.position_ = result.position_ + dt*result.direction_.into<float>()
                                           *result.velocity_;
     return result;
+}
+ */
+
+Position Character::get_position()
+{
+    return position_;
+}
+
+Dimensions Character::get_dimensions() {
+    return {width_, height_};
+}
+
+bool Character::hits_maze_wall(const Block& block)
+{
+    //right side of ball < left side of block OR
+    //right side of block < left side of ball OR
+    //bottom of ball > top of block OR
+    //bottom of block > top of ball
+    return !( (position_.x+width_ < block.center().x-block.width/2) ||
+              (block.center().x+block.width/2 < position_.x-width_) ||
+              (position_.y-height_ > block.center().y+block.height/2) ||
+              (block.center().y-block.height/2 > position_.y+height_) );
 }

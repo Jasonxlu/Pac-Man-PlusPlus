@@ -19,6 +19,16 @@ public:
 
     void draw(ge211::Sprite_set& set);
 
+    // Converts an abstract board position to a concrete screen
+    // position.
+    Position
+    board_to_screen(ge211::Posn<int> board_pos) const;
+
+    // Converts a concrete screen (pixel) position to an abstract board
+    // position.
+    ge211::Posn<int>
+    screen_to_board(Position screen_pos) const;
+
 private:
     Model const& model_;
 

@@ -8,6 +8,7 @@
 #pragma once
 
 #include <ge211.hxx>
+using Block = ge211::Rect<int>;
 
 
 /// We will represent positions as GE211 `Posn<float>`s, which we alias
@@ -54,13 +55,21 @@ public:
     ///
     ///    character = character.next();
     ///
-    Character next(double dt);
 
-private:
+    //Brennan comment: idk if we need this
+    //Character next(double dt);
+
+    Position get_position();
+
+    Dimensions get_dimensions();
+
+    bool hits_maze_wall(Block const& block);
+
+protected:
     const float speed_ = 1; //set speed as a constant
     Position position_;
-    float height_;
-    float width_;
+    int height_;
+    int width_;
     Dimensions direction_;
     float velocity_; //change this to change character velocity
 };

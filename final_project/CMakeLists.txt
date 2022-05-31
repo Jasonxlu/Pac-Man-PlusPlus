@@ -17,7 +17,8 @@ add_program(${GAME_EXE}
         src/controller.cxx
         src/main.cxx
         src/pacman.cxx
-        src/character.cxx)
+        src/character.cxx
+        src/ghost.cxx)
 target_link_libraries(${GAME_EXE} ge211)
 
 add_test_program(model_test
