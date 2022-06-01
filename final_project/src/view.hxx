@@ -29,6 +29,10 @@ public:
     ge211::Posn<int>
     screen_to_board(Position screen_pos) const;
 
+    Dimensions initial_window_dimensions() const;
+
+    std::string initial_window_title() const;
+
 private:
     Model const& model_;
 
