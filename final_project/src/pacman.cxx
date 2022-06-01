@@ -36,8 +36,8 @@ bool Pacman::overlaps_ghost(Ghost g) {
 }
 
 bool Pacman::hit_ghost(Ghost g) {
-    if(g.is_vulnerable_) {
-        g.kill();
+    if(g.is_vulnerable()) {
+        g.set_alive(false);
         return true;
     } else {
         alive_ = false;

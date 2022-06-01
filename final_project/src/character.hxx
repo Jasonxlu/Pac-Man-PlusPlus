@@ -65,8 +65,10 @@ public:
 
     bool hits_maze_wall(Block const& block);
 
+    void set_velocity(float v);
+
 protected:
-    const float speed_ = 1; //set speed as a constant
+    float speed_ = 1; //set speed as a constant
     Position position_;
     int height_;
     int width_;

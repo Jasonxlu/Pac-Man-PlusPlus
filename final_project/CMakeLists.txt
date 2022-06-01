@@ -18,7 +18,8 @@ add_program(${GAME_EXE}
         src/main.cxx
         src/pacman.cxx
         src/character.cxx
-        src/ghost.cxx)
+        src/ghost.cxx
+        src/maze.cxx)
 target_link_libraries(${GAME_EXE} ge211)
 
 add_test_program(model_test

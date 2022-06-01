@@ -1,6 +1,6 @@
 #include "view.hxx"
 
-static int const maze_size = 12*8; // Jason: Width x Height of the map? Not
+static int const maze_size = 67; // Jason: Width x Height of the map? Not
 // really sure just yet of what this constant does
 
 View::View(Model const& model)
@@ -11,7 +11,7 @@ View::View(Model const& model)
         ghost2(2, Color(0,255,0)),
         ghost3(2,Color(0,0,255)),
         ghost4(2,Color(150,150,150)),
-        wall({maze_size/4,maze_size/4},Color(0,0,255))
+        wall({maze_size-2,maze_size-2},Color(0,0,255))
 { }
 
 void
@@ -20,10 +20,17 @@ View::draw(ge211::Sprite_set& set)
     // This needs to do something!
     //Jason: Just testing drawing sprites rn
     /// Drawing the outer wall
-    set.add_sprite(wall,{0,0},1);
-    for(int x = 0; x<12; x++)
+    for(int x = 0; x<model_.maze_().dimensions().width; x++)
     {
-        set.add_sprite(wall,board_to_screen({x,0}),1);
+        for(int y = 0; y<model_.maze_().dimensions().height; y++)
+        {
+            if(x == 0 || y == 0 || x == model_.maze_().dimensions().width-1
+            || y == model_.maze_().dimensions().height-1) {
+                set.add_sprite(wall,board_to_screen({x,y}),1);
+            }
+
+        }
+
     }
 
 }

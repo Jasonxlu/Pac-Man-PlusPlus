@@ -2,6 +2,8 @@
 
 #include "ghost.hxx"
 #include "pacman.hxx"
+#include "maze.hxx"
+
 
 #include <iostream>
 
@@ -21,6 +23,8 @@ class Model
 public:
 
     Model();
+
+    Model(int width, int height);
     //Jason: TODO Right here
     //initialize characters here
     //Brennan comment: changed the constructor to be in cxx file
@@ -41,20 +45,22 @@ public:
     void
     set_round_over(bool over);
 
-    /// This asks if the pacman overlaps a ghost
+    /// This asks if the pacman hits a ghost.
     bool pacman_overlaps_ghost(Pacman p, Ghost g);
 
     /// removes a life from Pacman and sets game_over if < 0
-    void kill_pacman() {}
+    void kill_pacman() {};
 
     /// kills a ghost. Puts it back in the cage
-    void kill_ghost(Ghost ghost) {}
+    void kill_ghost(Ghost ghost) {};
 
     /// maze[pacman position] = regular pellet --> checks if maze num_pellets
     /// = 0. If so, it ends the round.
     /// if it's a power pellet, sets pacman is_powered and sets power timer.
     /// calls maze.hit_pellet(maze position) in both cases.
-    void overlaps_pellet() {}
+    void overlaps_pellet() {};
+
+    Maze maze_() const;
 
     /// PRIVATE FUNCTIONS
 
@@ -63,6 +69,8 @@ private:
     bool game_over_;
     Maze m_;
     Pacman pacman_;
+
+    //Dimensions screen_dims;
 
     Ghost g1_;
     Ghost g2_;

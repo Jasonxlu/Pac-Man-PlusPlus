@@ -67,3 +67,8 @@ bool Character::hits_maze_wall(const Block& block)
               (position_.y-height_ > block.center().y+block.height/2) ||
               (block.center().y-block.height/2 > position_.y+height_) );
 }
+
+void
+Character::set_velocity(float v) {
+    velocity_ = v;
+}
