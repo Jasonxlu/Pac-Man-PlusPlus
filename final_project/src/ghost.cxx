@@ -5,8 +5,8 @@
 #include "ghost.hxx"
 
 Ghost::Ghost() :
-        Character({50,50}, 10,
-                  10, {0,0}, 0),
+        Character({5,5}, 10,
+                  10, {1,0}, 3),
         vulnerable_(false),
         alive_(true),
         timer_(0)
@@ -57,7 +57,10 @@ Ghost::hit_wall(Maze m) {
             m.all_directions_randomized();
 
     for(Dimensions d : possible_directions) {
-        if(m[current_maze_position + d]) { //check moving in that direction.
+        if(//m[current_maze_position + d] &&
+        // TODO: maybe ask if this position is in the set before questioning
+            m[current_maze_position + d] == Tile::wall) {
+            //check moving in that direction.
             direction_ = d; //if moving in that direction is ok, set the
             // direction to that direction.
         }

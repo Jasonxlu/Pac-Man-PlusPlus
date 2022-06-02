@@ -19,7 +19,9 @@ add_program(${GAME_EXE}
         src/pacman.cxx
         src/character.cxx
         src/ghost.cxx
-        src/maze.cxx)
+        src/maze.cxx
+        src/tile.cxx
+        src/position_set.cxx)
 target_link_libraries(${GAME_EXE} ge211)
 
 add_test_program(model_test

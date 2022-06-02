@@ -2,7 +2,7 @@
 
 Model::Model()
         : game_over_(false),
-        m_({12,8})
+        m_({24,16})
 {}
 
 Model::Model(int width, int height)
@@ -21,12 +21,16 @@ bool Model::character_hits_screen_wall(Character c) {
 
 
 bool Model::character_hits_maze_wall(Character c) {
+
     //loop thru all maze walls and ask if character is inside
-    for(Block r : m_.get_walls()) {
-        if(c.hits_maze_wall(r)) {
+    for(ge211::Posn<int> p: m_.get_maze_walls()) {
+        //check if c hits a wall that is positioned at p
+        //and has width of 8 and height of 8 (hardcoded)
+        if(c.hits_maze_wall(Block(p.x, p.y, 8,8))) {
             return true;
         }
     }
+
     return false;
 }
 
@@ -98,6 +102,7 @@ void Model::on_frame(double dt)
 
 
 
+    /* BRENNAN COMMEMNT OUT FOR DEBUGGING
     //go through ghost nexts and ask if pacman hits it
     if(pacman_overlaps_ghost(pacman_next, g1_next)) {
         if(pacman_next.hit_ghost(g1_next)) {
@@ -139,7 +144,7 @@ void Model::on_frame(double dt)
             return; //return immediately if game over - don't update anything
         }
     }
-
+    */
 
 
     //TODO:check eat pellet
@@ -153,15 +158,16 @@ void Model::on_frame(double dt)
     }
 
     if(update_ghost_1) {
+        printf("updating ghost 1");
         g1_ = g1_.next(dt);
     }
     if(update_ghost_2) {
         g2_ = g2_.next(dt);
     }
-    if(update_ghost_1) {
+    if(update_ghost_3) {
         g3_ = g3_.next(dt);
     }
-    if(update_ghost_1) {
+    if(update_ghost_4) {
         g4_ = g4_.next(dt);
     }
 }

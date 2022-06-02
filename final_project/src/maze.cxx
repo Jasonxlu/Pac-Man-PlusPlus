@@ -3,7 +3,12 @@
 
 Maze::Maze(Dimensions dims)
             : dims_(dims)
-{}
+{
+    if (dims_.width < 2 || dims_.height < 2) {
+        throw ge211::Client_logic_error("Board::Board: dims too small");
+    }
+
+}
 
 Maze::Dimensions
 Maze::dimensions() const
@@ -18,24 +23,6 @@ Maze::good_position(Position pos) const
            0 <= pos.y && pos.y < dims_.height;
 }
 
-std::vector<Maze::Rectangle>
-Maze::get_walls()
-{
-    return walls_;
-}
-
-bool
-Maze::get_(Position pos) const
-{
-    for(Maze::Rectangle w : walls_) {
-        if (w.x == pos.x && w.y == pos.y) { //there is a wall here
-            return true;
-        }
-    }
-
-    return false;
-}
-
 void
 Maze::bounds_check_(Position pos) const
 {
@@ -45,7 +32,7 @@ Maze::bounds_check_(Position pos) const
 }
 
 
-bool
+Tile
 Maze::operator[](Position pos) const
 {
     bounds_check_(pos);
@@ -65,4 +52,87 @@ Maze::all_directions_randomized()
     auto rng = std::default_random_engine {};
     std::shuffle(std::begin(result), std::end(result), rng);
     return result;
+}
+
+Tile
+Maze::get_(Position pos) const
+{
+    if (walls_[pos]) {
+        return Tile::wall;
+    } else if (pellets_[pos]) {
+        return Tile::pellet;
+    }  else if (power_pellets_[pos]) {
+        return Tile::power_pellet;
+    } else {
+        return Tile::path;
+    }
+}
+
+void
+Maze::set_(Position pos, Tile tile)
+{
+    switch (tile) {
+    case Tile::wall:
+        walls_[pos] = true;
+        pellets_[pos] = false;
+        power_pellets_[pos] = false;
+        break;
+
+    case Tile::pellet:
+        walls_[pos] = false;
+        pellets_[pos] = true;
+        power_pellets_[pos] = false;
+        break;
+
+    case Tile::power_pellet:
+        walls_[pos] = false;
+        pellets_[pos] = false;
+        power_pellets_[pos] = true;
+        break;
+
+    default:
+        walls_[pos] = false;
+        pellets_[pos] = false;
+        power_pellets_[pos] = false;
+    }
+}
+
+//returns a vector of positions corresponding to the walls in the maze.
+std::vector<Maze::Position> Maze::get_maze_walls() {
+    printf("get_maze_walls");
+    std::vector<Position> walls;
+    for(int x=0; x<dims_.width; x++) {
+        printf("x: %d\n",x);
+        for(int y=0; y<dims_.height; y++) {
+
+            printf("y: %d\n",y);
+            if(walls_[{x,y}]) {
+                walls.push_back({x,y});
+            }
+        }
+    }
+    return walls;
+}
+
+
+
+//maze positions
+
+Maze::reference&
+Maze::reference::operator=(reference const& that) noexcept
+{
+    *this = Tile(that);
+    return *this;
+}
+
+Maze::reference&
+Maze::reference::operator=(Tile tile) noexcept
+{
+    maze_.set_(pos_, tile);
+    return *this;
+}
+
+Maze::reference::operator Tile() const noexcept
+{
+    return maze_.get_(pos_);
 }

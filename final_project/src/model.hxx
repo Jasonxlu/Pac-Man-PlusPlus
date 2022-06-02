@@ -3,6 +3,7 @@
 #include "ghost.hxx"
 #include "pacman.hxx"
 #include "maze.hxx"
+#include "tile.hxx"
 
 
 #include <iostream>
@@ -17,8 +18,7 @@ class Model
 {
 
 
-    /// PUBLIC FUNCTIONS (TODO: I think some of these can be private. Just making
-    /// them public to start off with.)
+    /// PUBLIC FUNCTIONS
 
 public:
 
@@ -61,6 +61,22 @@ public:
     void overlaps_pellet() {};
 
     Maze maze_() const;
+
+    Pacman get_pacman() const {
+        return pacman_;
+    }
+    Ghost get_ghost1() const {
+        return g1_;
+    }
+    Ghost get_ghost2() const {
+        return g2_;
+    }
+    Ghost get_ghost3() const {
+        return g3_;
+    }
+    Ghost get_ghost4() const {
+        return g4_;
+    }
 
     /// PRIVATE FUNCTIONS
 
