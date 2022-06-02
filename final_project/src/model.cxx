@@ -48,6 +48,7 @@ bool Model::pacman_overlaps_ghost(Pacman p, Ghost g)
 void Model::on_frame(double dt)
 {
 
+    printf("on frame!!");
     if(game_over_) {
         return;
     }
@@ -157,6 +158,7 @@ void Model::on_frame(double dt)
         pacman_ = pacman_.next(dt); //store the result in the pacman for real
     }
 
+    printf("end of on_frame");
     if(update_ghost_1) {
         printf("updating ghost 1");
         g1_ = g1_.next(dt);
