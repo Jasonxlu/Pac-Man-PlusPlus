@@ -5,8 +5,8 @@
 #include "ghost.hxx"
 
 Ghost::Ghost() :
-        Character({5,5}, 10,
-                  10, {1,0}, 3),
+        Character({50,50}, 10,
+                  10, {1,0}, 50),
         vulnerable_(false),
         alive_(true),
         timer_(0)
@@ -23,7 +23,22 @@ Ghost::set_vulnerable(bool vulnerable) {
 void Ghost::set_alive(bool alive)
 {
     alive_ = alive;
+    if(!alive) { //set alive to false (kill ghost)
+        velocity_=0;
+        direction_ = {0,-1}; //go up
+        position_={100,100};
+    }
     timer_ = 0;
+}
+
+
+void Ghost::update_timer(float dt) {
+    timer_ += dt;
+    if(timer_ >= timer_respawn_threshold_) {
+        timer_ = 0;
+        alive_ = true;
+        velocity_ = base_velocity_;
+    }
 }
 
 bool Ghost::is_vulnerable()
@@ -33,6 +48,7 @@ bool Ghost::is_vulnerable()
 
 Ghost
 Ghost::next(double dt) {
+    update_timer(dt);
     Ghost result(*this);
     result.position_ = result.position_ + dt*result.direction_.into<float>()
                                           *result.velocity_;

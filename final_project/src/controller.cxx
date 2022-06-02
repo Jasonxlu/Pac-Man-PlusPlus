@@ -3,7 +3,6 @@
 Controller::Controller()
         : model_(24,16),
         view_(model_)
-
 { }
 
 void
@@ -58,6 +57,5 @@ Controller::initial_window_title() const
 void
 Controller::on_frame(double dt)
 {
-    printf("calling on frame in model from controller!");
     model_.on_frame(dt);
 }

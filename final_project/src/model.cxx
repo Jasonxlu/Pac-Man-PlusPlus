@@ -3,12 +3,44 @@
 Model::Model()
         : game_over_(false),
         m_({24,16})
-{}
+{
+    /// Set the outer border
+    for (int x = 0; x < m_.dimensions().width; x++) {
+        for (int y = 0; y < m_.dimensions().height; y++) {
+            if (x == 0 || y == 0 ||
+                x == m_.dimensions().width - 1
+                || y == m_.dimensions().height - 1) {
+                m_[{x,y}] = Tile::wall;
+            }
+        }
+    }
+
+    //Drawing Ghost Box
+    for (int x = 0; x < model_.maze_().dimensions().width; x++) {
+        for (int y = 0; y < model_.maze_().dimensions().height; y++) {
+
+            if ((x==9 && y>5 && y<10) || (x==14 && y>5 && y<10) || (y==6
+                                                                    && x>8 && x<15) || (y==9 && x>8 && x<15))
+            {
+                if(!(x>=11 && x<=12 && y==6))
+                {
+                    set.add_sprite(wall,
+                                   {board_to_screen({x, y}).x,
+                                    board_to_screen({x, y}).y},
+                                   1);
+                }
+            }
+        }
+    }
+    maze_walls_ = m_.get_maze_walls();
+}
 
 Model::Model(int width, int height)
             : game_over_(false),
             m_({width, height})
-{}
+{
+    maze_walls_ = m_.get_maze_walls();
+}
 
 /*
 bool Model::character_hits_screen_wall(Character c) {
@@ -23,7 +55,7 @@ bool Model::character_hits_screen_wall(Character c) {
 bool Model::character_hits_maze_wall(Character c) {
 
     //loop thru all maze walls and ask if character is inside
-    for(ge211::Posn<int> p: m_.get_maze_walls()) {
+    for(ge211::Posn<int> p: maze_walls_) {
         //check if c hits a wall that is positioned at p
         //and has width of 8 and height of 8 (hardcoded)
         if(c.hits_maze_wall(Block(p.x, p.y, 8,8))) {
@@ -48,16 +80,20 @@ bool Model::pacman_overlaps_ghost(Pacman p, Ghost g)
 void Model::on_frame(double dt)
 {
 
-    printf("on frame!!");
     if(game_over_) {
         return;
     }
 
     bool update_pacman = true;
-    bool update_ghost_1 = false;
-    bool update_ghost_2 = false;
-    bool update_ghost_3 = false;
-    bool update_ghost_4 = false;
+    bool update_ghost_1 = true;
+    bool update_ghost_2 = true;
+    bool update_ghost_3 = true;
+    bool update_ghost_4 = true;
+
+    g1_.update_timer(dt);
+    g2_.update_timer(dt);
+    g3_.update_timer(dt);
+    g4_.update_timer(dt);
 
     Ghost g1_next = g1_.next(dt);
     Ghost g2_next = g2_.next(dt);
@@ -74,7 +110,6 @@ void Model::on_frame(double dt)
 
 
     //Characters hitting walls!!!!!!!
-
     if(character_hits_maze_wall(pacman_next)) {
         //pacman hits maze wall --> set velocity to 0
         pacman_.set_velocity(0);
@@ -158,9 +193,7 @@ void Model::on_frame(double dt)
         pacman_ = pacman_.next(dt); //store the result in the pacman for real
     }
 
-    printf("end of on_frame");
     if(update_ghost_1) {
-        printf("updating ghost 1");
         g1_ = g1_.next(dt);
     }
     if(update_ghost_2) {

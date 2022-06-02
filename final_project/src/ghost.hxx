@@ -13,6 +13,9 @@ private:
     bool vulnerable_;
     bool alive_;
     float timer_; //timer until this ghost can respawn.
+    float timer_respawn_threshold_ = 10;
+    //10 seconds until respawn
+    float base_velocity_ = 50;
 
 public:
 
@@ -22,6 +25,8 @@ public:
     void set_alive(bool alive);
 
     void set_vulnerable(bool vulnerable);
+
+    void update_timer(float dt);
 
     bool is_vulnerable();
 

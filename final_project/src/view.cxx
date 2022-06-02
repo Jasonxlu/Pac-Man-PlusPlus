@@ -52,13 +52,15 @@ View::draw(ge211::Sprite_set& set)
     }
 
     /// Drawing Characters
-   // set.add_sprite(pacman, board_to_screen(model_.), 1);
-    //set.add_sprite(ghost1, board_to_screen({8, 4}), 1);
-    set.add_sprite(ghost2, board_to_screen({5, 7}), 2);
-    set.add_sprite(ghost3, board_to_screen({2, 7}), 2);
-    set.add_sprite(ghost4, board_to_screen({7, 7}), 2);
-    set.add_sprite(ghost1, board_to_screen(
-            model_.get_ghost1().get_position().into<int>()),
+    set.add_sprite(pacman, model_.get_pacman().get_position().into<int>(),
+                    1);
+    set.add_sprite(ghost1, model_.get_ghost1().get_position().into<int>(),
+                   2);
+    set.add_sprite(ghost2, model_.get_ghost2().get_position().into<int>(),
+                   2);
+    set.add_sprite(ghost3, model_.get_ghost3().get_position().into<int>(),
+                   2);
+    set.add_sprite(ghost4, model_.get_ghost4().get_position().into<int>(),
                    2);
 
 }

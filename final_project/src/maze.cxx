@@ -99,13 +99,10 @@ Maze::set_(Position pos, Tile tile)
 
 //returns a vector of positions corresponding to the walls in the maze.
 std::vector<Maze::Position> Maze::get_maze_walls() {
-    printf("get_maze_walls");
     std::vector<Position> walls;
     for(int x=0; x<dims_.width; x++) {
-        printf("x: %d\n",x);
         for(int y=0; y<dims_.height; y++) {
 
-            printf("y: %d\n",y);
             if(walls_[{x,y}]) {
                 walls.push_back({x,y});
             }

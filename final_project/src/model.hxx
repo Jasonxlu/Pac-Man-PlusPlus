@@ -92,4 +92,6 @@ private:
     Ghost g2_;
     Ghost g3_;
     Ghost g4_;
+
+    std::vector<ge211::Posn<int>> maze_walls_;
 };
