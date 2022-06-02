@@ -90,8 +90,7 @@ public:
         return g4_;
     }
 
-    /// PRIVATE FUNCTIONS
-
+    /// PRIVATE VARIABLES
 private:
 
     bool game_over_;
@@ -108,4 +107,9 @@ private:
     std::vector<ge211::Posn<int>> maze_walls_;
 
     int maze_size_;
+
+    ///PUBLIC VARIABLES
+public:
+    // A source of random “boost” values.
+    ge211::Random_source<int> random_direction_source;
 };

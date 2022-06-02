@@ -53,7 +53,7 @@ Maze::reference::reference(Maze& maze, Position pos) noexcept
 
 
 std::vector<Maze::Dimensions>
-Maze::all_directions_randomized()
+Maze::all_directions()
 {
     std::vector<Dimensions> result;
 
@@ -62,8 +62,6 @@ Maze::all_directions_randomized()
     result.push_back({1,0}); //left
     result.push_back({-1,0}); //right
 
-    auto rng = std::default_random_engine {};
-    std::shuffle(std::begin(result), std::end(result), rng);
     return result;
 }
 

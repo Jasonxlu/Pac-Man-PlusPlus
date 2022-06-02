@@ -74,7 +74,7 @@ public:
 
     /// Returns a reference to a `std::vector` containing all four "unit
     /// direction vectors".
-    static std::vector<Dimensions> all_directions_randomized();
+    static std::vector<Dimensions> all_directions();
 
 
 };

@@ -57,7 +57,8 @@ Ghost::next(double dt) {
 
 
 void
-Ghost::hit_wall(Maze m, ge211::Posn<int> current_maze_posn) {
+Ghost::hit_wall(Maze m, int random_int_bounded, ge211::Posn<int>
+        current_maze_posn) {
 
     //check which directions are safe to move in.
     //set the direction to be equal to a safe direction.
@@ -69,9 +70,22 @@ Ghost::hit_wall(Maze m, ge211::Posn<int> current_maze_posn) {
     //Position position_diff = position_ - pacman_position;
 
     std::vector<Dimensions> possible_directions =
-            m.all_directions_randomized();
+            m.all_directions();
 
-    for(Dimensions d : possible_directions) {
+    std::vector<Dimensions> possible_directions_randomized;
+
+    //randomize based on random_int_bounded
+    //NOT ACTUALLY RANDOMIZED - it will be in the same order,
+    //just seeded differently.
+    for(int i = 0; i < 4; i++) {
+        possible_directions_randomized.push_back(
+                possible_directions[
+                        (random_int_bounded+i)%4
+                ]
+        );
+    }
+
+    for(Dimensions d : possible_directions_randomized) {
         if(m[current_maze_posn + d] != Tile::wall) {
             printf("MOVING IN THE {%d,%d} direction\n",
                    d.width, d.height);

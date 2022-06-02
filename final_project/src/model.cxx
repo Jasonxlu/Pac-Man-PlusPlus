@@ -9,7 +9,8 @@ Model::Model()
 Model::Model(int width, int height, int maze_size)
             : game_over_(false),
             m_({width, height}),
-            maze_size_(maze_size)
+            maze_size_(maze_size),
+            random_direction_source(0, 4)
 {
     /// Set the outer border
     for (int x = 0; x < m_.dimensions().width; x++) {
@@ -129,28 +130,28 @@ void Model::on_frame(double dt)
         //ghost hits maze wall --> call ghost hit_wall(Maze)
         g1_.hit_wall(m_,
                      screen_to_board_(
-                             g1_next.get_position().into<int>()));
+                             g1_.get_position().into<int>()));
         //update_ghost_1 = false; //don't update the pacman to its next position
     }
     if(character_hits_maze_wall(g2_next)) {
         //ghost hits maze wall --> call ghost hit_wall(Maze)
         g2_.hit_wall(m_,
             screen_to_board_(
-                    g1_next.get_position().into<int>()));
+                    g2_.get_position().into<int>()));
         //update_ghost_2 = false; //don't update the pacman to its next position
     }
     if(character_hits_maze_wall(g3_next)) {
         //ghost hits maze wall --> call ghost hit_wall(Maze)
         g3_.hit_wall(m_,
                      screen_to_board_(
-                             g1_next.get_position().into<int>()));
+                             g3_.get_position().into<int>()));
         //update_ghost_3 = false; //don't update the pacman to its next position
     }
     if(character_hits_maze_wall(g4_next)) {
         //ghost hits maze wall --> call ghost hit_wall(Maze)
         g4_.hit_wall(m_,
                      screen_to_board_(
-                             g1_next.get_position().into<int>()));
+                             g4_.get_position().into<int>()));
         //update_ghost_4 = false; //don't update the pacman to its next position
     }
 
