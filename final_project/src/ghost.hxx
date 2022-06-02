@@ -32,6 +32,6 @@ public:
 
     Ghost next(double dt);
 
-    void hit_wall(Maze m);
+    void hit_wall(Maze m, ge211::Posn<int> current_maze_posn);
 
 };

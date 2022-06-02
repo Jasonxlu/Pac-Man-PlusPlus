@@ -1,9 +1,10 @@
 #include "controller.hxx"
 
 Controller::Controller()
-        : model_(24,16),
+        : model_(24,16, 32),
         view_(model_)
 { }
+//NOTE: Brennan added maze size to constructor
 
 void
 Controller::draw(ge211::Sprite_set& set)

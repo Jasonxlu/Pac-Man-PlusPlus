@@ -19,6 +19,7 @@ View::draw(ge211::Sprite_set& set)
     // This needs to do something!
     //Jason: Just testing drawing sprites rn
 
+    /*
     /// Drawing the outer border
     for (int x = 0; x < model_.maze_().dimensions().width; x++) {
         for (int y = 0; y < model_.maze_().dimensions().height; y++) {
@@ -49,6 +50,14 @@ View::draw(ge211::Sprite_set& set)
                 }
             }
         }
+    }
+*/
+
+    //draw the walls
+    for(Position p : model_.maze_().get_maze_walls()) {
+        set.add_sprite(wall,
+                       {board_to_screen(p)},
+                       1);
     }
 
     /// Drawing Characters

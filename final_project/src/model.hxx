@@ -17,6 +17,18 @@ using namespace ge211;
 class Model
 {
 
+    /// PRIVATE FUNCTIONS
+private:
+    // Converts a concrete screen (pixel) position to an abstract board
+    // position.
+    ge211::Posn<int>
+    screen_to_board_(ge211::Posn<int> screen_pos) const;
+
+    // Converts an abstract board position to a concrete screen
+    // position.
+    ge211::Posn<int>
+    board_to_screen(ge211::Posn<int> board_pos) const;
+
 
     /// PUBLIC FUNCTIONS
 
@@ -24,7 +36,7 @@ public:
 
     Model();
 
-    Model(int width, int height);
+    Model(int width, int height, int maze_size);
     //Jason: TODO Right here
     //initialize characters here
     //Brennan comment: changed the constructor to be in cxx file
@@ -94,4 +106,6 @@ private:
     Ghost g4_;
 
     std::vector<ge211::Posn<int>> maze_walls_;
+
+    int maze_size_;
 };

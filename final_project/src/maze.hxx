@@ -21,7 +21,7 @@ public:
     using Position = ge211::Posn<int>;
 
     /// Board rectangles will use `int` coordinates.
-    using Rectangle = ge211::Rect<int>;
+    //using Rectangle = ge211::Rect<int>;
 
     // Defined and documented below.
     class reference;
@@ -60,12 +60,21 @@ public:
     ///  - throws `ge211::Client_logic_error` if `!good_position(pos)`.
     Tile operator[](Position pos) const;
 
+
+    /// Returns a reference to the `Tile` stored at `pos`. This can
+    /// be assigned to update the maze.
+    ///
+    /// ## Errors
+    ///
+    ///  - throws `ge211::Client_logic_error` if `!good_position(pos)`.
+    reference operator[](Position pos);
+
     std::vector<Position> get_maze_walls(); //TODO: overhaul
 
 
     /// Returns a reference to a `std::vector` containing all four "unit
     /// direction vectors".
-    static std::vector<Dimensions> const& all_directions_randomized();
+    static std::vector<Dimensions> all_directions_randomized();
 
 
 };

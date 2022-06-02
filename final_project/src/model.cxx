@@ -1,8 +1,15 @@
 #include "model.hxx"
 
 Model::Model()
-        : game_over_(false),
-        m_({24,16})
+        : Model(24,16, 32)
+{
+
+}
+
+Model::Model(int width, int height, int maze_size)
+            : game_over_(false),
+            m_({width, height}),
+            maze_size_(maze_size)
 {
     /// Set the outer border
     for (int x = 0; x < m_.dimensions().width; x++) {
@@ -16,29 +23,20 @@ Model::Model()
     }
 
     //Drawing Ghost Box
-    for (int x = 0; x < model_.maze_().dimensions().width; x++) {
-        for (int y = 0; y < model_.maze_().dimensions().height; y++) {
+    for (int x = 0; x < m_.dimensions().width; x++) {
+        for (int y = 0; y < m_.dimensions().height; y++) {
 
             if ((x==9 && y>5 && y<10) || (x==14 && y>5 && y<10) || (y==6
                                                                     && x>8 && x<15) || (y==9 && x>8 && x<15))
             {
                 if(!(x>=11 && x<=12 && y==6))
                 {
-                    set.add_sprite(wall,
-                                   {board_to_screen({x, y}).x,
-                                    board_to_screen({x, y}).y},
-                                   1);
+                    m_[{x,y}] = Tile::wall;
                 }
             }
         }
     }
-    maze_walls_ = m_.get_maze_walls();
-}
 
-Model::Model(int width, int height)
-            : game_over_(false),
-            m_({width, height})
-{
     maze_walls_ = m_.get_maze_walls();
 }
 
@@ -54,11 +52,24 @@ bool Model::character_hits_screen_wall(Character c) {
 
 bool Model::character_hits_maze_wall(Character c) {
 
+    //this won't work because it's just looking at the center.
+    /*
+    //check if the tile at this character is a wall
+    if(m_[screen_to_board_(c.get_position().into<int>())]
+            == Tile::wall) {
+        return true;
+    }
+    return false;
+     */
+
     //loop thru all maze walls and ask if character is inside
     for(ge211::Posn<int> p: maze_walls_) {
         //check if c hits a wall that is positioned at p
         //and has width of 8 and height of 8 (hardcoded)
-        if(c.hits_maze_wall(Block(p.x, p.y, 8,8))) {
+        if(c.hits_maze_wall(Block(
+                board_to_screen(p).x,
+                 board_to_screen(p).y,
+                 30,30))) {
             return true;
         }
     }
@@ -108,7 +119,6 @@ void Model::on_frame(double dt)
     }
      */
 
-
     //Characters hitting walls!!!!!!!
     if(character_hits_maze_wall(pacman_next)) {
         //pacman hits maze wall --> set velocity to 0
@@ -117,23 +127,31 @@ void Model::on_frame(double dt)
     }
     if(character_hits_maze_wall(g1_next)) {
         //ghost hits maze wall --> call ghost hit_wall(Maze)
-        g1_.hit_wall(m_);
-        update_ghost_1 = false; //don't update the pacman to its next position
+        g1_.hit_wall(m_,
+                     screen_to_board_(
+                             g1_next.get_position().into<int>()));
+        //update_ghost_1 = false; //don't update the pacman to its next position
     }
     if(character_hits_maze_wall(g2_next)) {
         //ghost hits maze wall --> call ghost hit_wall(Maze)
-        g2_.hit_wall(m_);
-        update_ghost_2 = false; //don't update the pacman to its next position
+        g2_.hit_wall(m_,
+            screen_to_board_(
+                    g1_next.get_position().into<int>()));
+        //update_ghost_2 = false; //don't update the pacman to its next position
     }
     if(character_hits_maze_wall(g3_next)) {
         //ghost hits maze wall --> call ghost hit_wall(Maze)
-        g3_.hit_wall(m_);
-        update_ghost_3 = false; //don't update the pacman to its next position
+        g3_.hit_wall(m_,
+                     screen_to_board_(
+                             g1_next.get_position().into<int>()));
+        //update_ghost_3 = false; //don't update the pacman to its next position
     }
     if(character_hits_maze_wall(g4_next)) {
         //ghost hits maze wall --> call ghost hit_wall(Maze)
-        g4_.hit_wall(m_);
-        update_ghost_4 = false; //don't update the pacman to its next position
+        g4_.hit_wall(m_,
+                     screen_to_board_(
+                             g1_next.get_position().into<int>()));
+        //update_ghost_4 = false; //don't update the pacman to its next position
     }
 
 
@@ -211,4 +229,16 @@ Maze
 Model::maze_() const
 {
     return m_;
+}
+
+ge211::Posn<int>
+Model::screen_to_board_(ge211::Posn<int> pos) const
+{
+    return {pos.x / maze_size_, pos.y / maze_size_};
+}
+
+ge211::Posn<int>
+Model::board_to_screen(ge211::Posn<int> pos) const
+{
+    return {maze_size_ * pos.x, maze_size_ * pos.y};
 }

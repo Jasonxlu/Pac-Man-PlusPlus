@@ -5,7 +5,7 @@
 #include "ghost.hxx"
 
 Ghost::Ghost() :
-        Character({50,50}, 10,
+        Character({400,250}, 10,
                   10, {1,0}, 50),
         vulnerable_(false),
         alive_(true),
@@ -57,7 +57,8 @@ Ghost::next(double dt) {
 
 
 void
-Ghost::hit_wall(Maze m) {
+Ghost::hit_wall(Maze m, ge211::Posn<int> current_maze_posn) {
+
     //check which directions are safe to move in.
     //set the direction to be equal to a safe direction.
 
@@ -67,15 +68,13 @@ Ghost::hit_wall(Maze m) {
     //Not sure what's going on here, it doesn't like:
     //Position position_diff = position_ - pacman_position;
 
-    //cast the position to int to check it against the
-    ge211::Posn<int> current_maze_position = position_.into<int>();
-    std::vector<Maze::Dimensions> possible_directions =
+    std::vector<Dimensions> possible_directions =
             m.all_directions_randomized();
 
     for(Dimensions d : possible_directions) {
-        if(//m[current_maze_position + d] &&
-        // TODO: maybe ask if this position is in the set before questioning
-            m[current_maze_position + d] == Tile::wall) {
+        if(m[current_maze_posn + d] != Tile::wall) {
+            printf("MOVING IN THE {%d,%d} direction\n",
+                   d.width, d.height);
             //check moving in that direction.
             direction_ = d; //if moving in that direction is ok, set the
             // direction to that direction.

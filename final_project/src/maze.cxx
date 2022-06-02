@@ -39,7 +39,20 @@ Maze::operator[](Position pos) const
     return get_(pos);
 }
 
-std::vector<Maze::Dimensions> const&
+Maze::reference
+Maze::operator[](Position pos)
+{
+    bounds_check_(pos);
+    return reference(*this, pos);
+}
+
+Maze::reference::reference(Maze& maze, Position pos) noexcept
+        : maze_(maze),
+          pos_(pos)
+{ }
+
+
+std::vector<Maze::Dimensions>
 Maze::all_directions_randomized()
 {
     std::vector<Dimensions> result;
