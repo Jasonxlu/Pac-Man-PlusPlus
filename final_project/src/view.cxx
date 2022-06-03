@@ -15,19 +15,44 @@ View::View(Model const& model)
         ghost4("green_ghost.png"),
         sans30{"sans.ttf", 20},
         pellet("pellet.png"),
-        score("Score: 0",sans30),
-        lives("Lives: 3",sans30),
-        round("Round: 1",sans30)
+        score("Score: ",sans30),
+        lives("Lives: ",sans30),
+        round("Round: ",sans30)
 { }
 
 void
 View::draw(ge211::Sprite_set& set)
 {
 
+
     //draw the score, life, and round counter
-    set.add_sprite(score, {800,25}, 3);
-    set.add_sprite(lives, {800,100}, 3);
-    set.add_sprite(round, {800,175}, 3);
+    std::string display_score ("Score: ");
+    display_score.append(std::to_string(model_.get_score()));
+    ge211::Text_sprite::Builder score_builder(sans30);
+    score_builder.message(display_score);
+    score.reconfigure(score_builder);
+
+    set.add_sprite(score,
+            {800,25}, 3);
+
+
+    std::string display_lives ("Lives: ");
+    display_lives.append(std::to_string(model_.get_pacman_lives()));
+    ge211::Text_sprite::Builder lives_builder(sans30);
+    lives_builder.message(display_lives);
+    lives.reconfigure(lives_builder);
+
+    set.add_sprite(lives,
+            {800,100}, 3);
+
+    std::string display_round ("Round: ");
+    display_round.append(std::to_string(model_.get_round_number()));
+    ge211::Text_sprite::Builder round_builder(sans30);
+    round_builder.message(display_round);
+    round.reconfigure(round_builder);
+
+    set.add_sprite(round,
+            {800,175}, 3);
 
     //draw the walls
     for(Position p : model_.maze_().get_maze_walls()) {

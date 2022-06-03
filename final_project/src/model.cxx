@@ -362,6 +362,7 @@ bool Model::pacman_overlaps_pellet() {
     if(m_[pacman_board_pos]
        == Tile::pellet) {
         m_.destroy_pellet(pacman_board_pos);
+        increment_score(pellet_score_); //add pellet score to score
         return true;
     }
     return false;
@@ -376,6 +377,10 @@ bool Model::pacman_overlaps_ghost(Pacman p, Ghost g)
         return true;
     }
     return false;
+}
+
+void Model::increment_score(int i) {
+    score_ += i;
 }
 
 void Model::increment_round() {
@@ -393,7 +398,13 @@ void Model::decrement_pacman_lives() {
         game_over_ = true;
         return;
     }
-    pacman_ = Pacman({352,322}); //reset pacman
+
+    //reset pacman and ghosts
+    pacman_ = Pacman({352,322}); //reset pacman and ghosts
+    g1_ = Ghost({352,224});
+    g2_ = Ghost({352,256});
+    g3_ = Ghost({384,224});
+    g4_ = Ghost({384,256});
 }
 
 void Model::on_frame(double dt)
@@ -454,7 +465,8 @@ void Model::on_frame(double dt)
 
 
 
-    //TODO: CHANGE
+    //TODO: CHANGE? Idk maybe this is changed already?? Why did I want to
+    // change this? -Brennan
     //go through ghost nexts and ask if pacman hits it
     if(pacman_overlaps_ghost(pacman_, g1_)) {
         //if the pacman does hit the ghost, ask what happens when it does.
@@ -462,6 +474,7 @@ void Model::on_frame(double dt)
             //pacman hits ghost --> returns true if pacman kills it and
             // false if pacman dies from the ghost
             g1_.set_alive(false);
+            increment_score(ghost_score_); //add ghost kill score to score
         } else {
             decrement_pacman_lives();
             return; //return immediately if game over - don't update anything
@@ -472,6 +485,7 @@ void Model::on_frame(double dt)
             //pacman hits ghost --> returns true if pacman kills it and
             // false if pacman dies from the ghost
             g2_.set_alive(false);
+            increment_score(ghost_score_); //add ghost kill score to score
         } else {
             decrement_pacman_lives();
             return; //return immediately if game over - don't update anything
@@ -482,6 +496,7 @@ void Model::on_frame(double dt)
             //pacman hits ghost --> returns true if pacman kills it and
             // false if pacman dies from the ghost
             g3_.set_alive(false);
+            increment_score(ghost_score_); //add ghost kill score to score
         } else {
             decrement_pacman_lives();
             return; //return immediately if game over - don't update anything
@@ -492,6 +507,7 @@ void Model::on_frame(double dt)
             //pacman hits ghost --> returns true if pacman kills it and
             // false if pacman dies from the ghost
             g4_.set_alive(false);
+            increment_score(ghost_score_); //add ghost kill score to score
         } else {
             decrement_pacman_lives();
             return; //return immediately if game over - don't update anything
@@ -542,5 +558,22 @@ Model::update_pacman_direction(Dimensions d) {
     }
 }
 
+///GETTERS
+/*
+int
+Model::get_score() {
+    return score_;
+}
+int
+Model::get_round_number()
+{
+    return round_number_;
+}
+int
+Model::get_pacman_lives()
+{
+    return pacman_lives_;
+}
+*/
 
 ///TESTING FUNCTIONS

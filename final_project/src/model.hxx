@@ -92,7 +92,21 @@ public:
         return g4_;
     }
 
+
+    ///getters
+    int get_score() const {
+        return score_;
+    }
+    int get_round_number() const { //for the view. Adding + 1 because it
+        // should start at 1.
+        return round_number_ + 1;
+    }
+    int get_pacman_lives() const {
+        return pacman_lives_;
+    }
+
     void decrement_pacman_lives();
+    void increment_score(int i);
 
     ///TESTING FUNCTIONS
     void set_tile(Position p, Tile t) {
@@ -130,9 +144,13 @@ private:
 
     int maze_size_;
 
+    int score_ = 0;
     int round_number_ = 0;
     int num_rounds_;
     int pacman_lives_ = 3;
+    int pellet_score_ = 10;
+    int power_pellet_score_ = 50;
+    int ghost_score_ = 200;
 
     ///PUBLIC VARIABLES
 public:
