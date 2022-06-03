@@ -22,23 +22,23 @@ Controller::on_key(ge211::Key key)
 
     if(key == ge211::Key::up())
     {
-        model_.get_pacman().update_direction({0,-1});
+        model_.update_pacman_direction({0,-1});
 
     }
 
     if(key == ge211::Key::down())
     {
-        model_.get_pacman().update_direction({0,1});
+        model_.update_pacman_direction({0,1});
     }
 
     if(key == ge211::Key::left())
     {
-        model_.get_pacman().update_direction({-1,0});
+        model_.update_pacman_direction({-1,0});
     }
 
     if(key == ge211::Key::right())
     {
-        model_.get_pacman().update_direction({1,0});
+        model_.update_pacman_direction({1,0});
     }
 }
 

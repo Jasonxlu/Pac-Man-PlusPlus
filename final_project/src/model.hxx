@@ -32,6 +32,8 @@ public:
     //initialize characters here
     //Brennan comment: changed the constructor to be in cxx file
 
+    void update_pacman_direction(Dimensions d);
+
     /// Determines whether the character hits the side of the screen
     //Jason: TODO: Boolean values are placeholders right now
     bool

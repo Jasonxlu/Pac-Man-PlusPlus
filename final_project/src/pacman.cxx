@@ -11,8 +11,8 @@ Pacman::Pacman() :
 }
 
 Pacman::Pacman(Position initial_position) :
-        Character(initial_position, 30,
-                  30, {0,0}, 0),
+        Character(initial_position, 20,
+                  20, {0,0}, 0),
         is_powered_(false),
         alive_(true)
 {

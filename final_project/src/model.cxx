@@ -269,8 +269,8 @@ void Model::on_frame(double dt)
     //Characters hitting walls!!!!!!!
     if(character_hits_maze_wall(pacman_next)) {
         //pacman hits maze wall --> set velocity to 0
-        //pacman_.set_velocity(0);
-        //update_pacman = false; //don't update the pacman to its next position
+        pacman_.set_velocity(0);
+        update_pacman = false; //don't update the pacman to its next position
     }
     if(character_hits_maze_wall(g1_next)) {
         //ghost hits maze wall --> call ghost hit_wall(Maze)
@@ -383,3 +383,8 @@ Model::board_to_screen(ge211::Posn<int> pos) const
     return {maze_size_ * pos.x, maze_size_ * pos.y};
 }
 
+
+void
+Model::update_pacman_direction(Dimensions d) {
+    pacman_.update_direction(d);
+}

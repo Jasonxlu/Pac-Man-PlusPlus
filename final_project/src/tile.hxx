@@ -10,7 +10,8 @@ enum class Tile
     pellet,
     power_pellet,
     wall,
-    path
+    path,
+    spawn_point
 };
 
 // Prints a tile in a manner suitable for debugging.

@@ -12,6 +12,8 @@ operator<<(std::ostream& os, Tile t)
         return os << "P";
     case Tile::wall:
         return os << "w";
+    case Tile::spawn_point:
+        return os << "s";
     default:
         return os << "_";
     }

@@ -74,6 +74,8 @@ Maze::get_(Position pos) const
         return Tile::pellet;
     }  else if (power_pellets_[pos]) {
         return Tile::power_pellet;
+    } else if (spawn_points_[pos]) {
+        return Tile::spawn_point;
     } else {
         return Tile::path;
     }
@@ -87,24 +89,35 @@ Maze::set_(Position pos, Tile tile)
         walls_[pos] = true;
         pellets_[pos] = false;
         power_pellets_[pos] = false;
+        spawn_points_[pos] = false;
         break;
 
     case Tile::pellet:
         walls_[pos] = false;
         pellets_[pos] = true;
         power_pellets_[pos] = false;
+        spawn_points_[pos] = false;
         break;
 
     case Tile::power_pellet:
         walls_[pos] = false;
         pellets_[pos] = false;
         power_pellets_[pos] = true;
+        spawn_points_[pos] = false;
+        break;
+
+    case Tile::spawn_point:
+        walls_[pos] = false;
+        pellets_[pos] = false;
+        power_pellets_[pos] = false;
+        spawn_points_[pos] = true;
         break;
 
     default:
         walls_[pos] = false;
         pellets_[pos] = false;
         power_pellets_[pos] = false;
+        spawn_points_[pos] = false;
     }
 }
 

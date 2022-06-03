@@ -33,6 +33,7 @@ private:
     Position_set walls_;
     Position_set pellets_;
     Position_set power_pellets_;
+    Position_set spawn_points_;
     // INVARIANT: (walls_ & pellets_ & power_pellets_).empty()
 
 
