@@ -19,6 +19,7 @@ public:
 
     ///constructor
     Pacman();
+    Pacman(Position initial_position);
 
     void set_powered(bool powered);
 
@@ -27,5 +28,7 @@ public:
     Pacman next(double dt);
 
     bool overlaps_ghost(Ghost g);
+
+    void update_direction(Dimensions d);
 
 };

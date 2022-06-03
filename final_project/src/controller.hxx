@@ -2,6 +2,7 @@
 
 #include "view.hxx"
 
+
 #include <ge211.hxx>
 
 class Controller : public ge211::Abstract_game

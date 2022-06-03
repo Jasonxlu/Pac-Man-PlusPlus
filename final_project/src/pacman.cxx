@@ -5,14 +5,19 @@
 #include "pacman.hxx"
 
 Pacman::Pacman() :
-        Character({0,0}, 10,
-                  10, {0,0}, 0),
-                  is_powered_(false),
-                  alive_(true)
+        Pacman({200,200})
 {
     //call parent constructor in initializer list
 }
 
+Pacman::Pacman(Position initial_position) :
+        Character(initial_position, 30,
+                  30, {0,0}, 0),
+        is_powered_(false),
+        alive_(true)
+{
+    //call parent constructor in initializer list
+}
 
 void
 Pacman::set_powered(bool powered) {
@@ -25,14 +30,11 @@ bool Pacman::overlaps_ghost(Ghost g) {
     //bottom of pacman > top of ghost OR
     //bottom of ghost > top of pacman
     //TODO: Might be wrong
-    return !( (position_.x+width_ < g.get_position().x-
-            g.get_dimensions().width) ||
-              (g.get_position().x+g.get_dimensions().width < position_
-              .x-width_) ||
-              (position_.y-height_ > g.get_position().y+g.get_dimensions()
-              .height/2) ||
-              (g.get_position().y-g.get_dimensions().height > position_
-              .y+height_) );
+
+    return !( (position_.x+width_ < g.get_position().x) ||
+              (g.get_position().x+g.get_dimensions().width < position_.x) ||
+              (position_.y-height_ > g.get_position().y) ||
+              (g.get_position().y-g.get_dimensions().height > position_.y) );
 }
 
 bool Pacman::hit_ghost(Ghost g) {
@@ -46,11 +48,18 @@ bool Pacman::hit_ghost(Ghost g) {
 
 }
 
-
 Pacman
 Pacman::next(double dt) {
+
     Pacman result(*this);
     result.position_ = result.position_ + dt*result.direction_.into<float>()
-                                          *result.velocity_;
+            *result.velocity_;
     return result;
+}
+
+void
+Pacman::update_direction(Dimensions d) {
+    direction_ = d;
+    velocity_ = 100;
+    //Todo: Does not work for some reasons
 }

@@ -37,12 +37,12 @@ private:
     Model const& model_;
 
     // Jason: Adding Sprites
-    ge211::Circle_sprite pacman;
-    ge211::Circle_sprite ghost1;
-    ge211::Circle_sprite ghost2;
-    ge211::Circle_sprite ghost3;
-    ge211::Circle_sprite ghost4;
-    ge211::Rectangle_sprite wall;
+    ge211::Image_sprite pacman;
+    ge211::Image_sprite wall;
+    ge211::Image_sprite ghost1;
+    ge211::Image_sprite ghost2;
+    ge211::Image_sprite ghost3;
+    ge211::Image_sprite ghost4;
 
 
 };

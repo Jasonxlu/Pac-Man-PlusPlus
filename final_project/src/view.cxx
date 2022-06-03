@@ -5,53 +5,20 @@ static int const maze_size = 32; // Jason: Proportions of the map
 View::View(Model const& model)
         : model_(model),
         //Jason Todo: These radii are just placeholders
-        pacman(10, Color(255,255,0)),
-        ghost1(10, Color(255,0,0)),
-        ghost2(10, Color(0,255,0)),
-        ghost3(10,Color(25,240,130)),
-        ghost4(10,Color(100,15,175)),
-        wall({maze_size-1,maze_size-1},Color(0,0,255))
+
+        pacman("pacman_open.png"),
+        wall("wall.png"),
+        ghost1("red_ghost.png"),
+        ghost2("blue_ghost.png"),
+        ghost3("purple_ghost.png"),
+        ghost4("green_ghost.png")
+
+
 { }
 
 void
 View::draw(ge211::Sprite_set& set)
 {
-    // This needs to do something!
-    //Jason: Just testing drawing sprites rn
-
-    /*
-    /// Drawing the outer border
-    for (int x = 0; x < model_.maze_().dimensions().width; x++) {
-        for (int y = 0; y < model_.maze_().dimensions().height; y++) {
-            if (x == 0 || y == 0 ||
-                x == model_.maze_().dimensions().width - 1
-                || y == model_.maze_().dimensions().height - 1) {
-                set.add_sprite(wall,
-                               {board_to_screen({x, y}).x,
-                                board_to_screen({x,y}).y},
-                               1);
-            }
-        }
-    }
-
-    //Drawing Ghost Box
-    for (int x = 0; x < model_.maze_().dimensions().width; x++) {
-        for (int y = 0; y < model_.maze_().dimensions().height; y++) {
-
-            if ((x==9 && y>5 && y<10) || (x==14 && y>5 && y<10) || (y==6
-            && x>8 && x<15) || (y==9 && x>8 && x<15))
-            {
-                if(!(x>=11 && x<=12 && y==6))
-                {
-                    set.add_sprite(wall,
-                                   {board_to_screen({x, y}).x,
-                                    board_to_screen({x, y}).y},
-                                   1);
-                }
-            }
-        }
-    }
-*/
 
     //draw the walls
     for(Position p : model_.maze_().get_maze_walls()) {
@@ -61,16 +28,25 @@ View::draw(ge211::Sprite_set& set)
     }
 
     /// Drawing Characters
-    set.add_sprite(pacman, model_.get_pacman().get_position().into<int>(),
-                    1);
-    set.add_sprite(ghost1, model_.get_ghost1().get_position().into<int>(),
-                   2);
-    set.add_sprite(ghost2, model_.get_ghost2().get_position().into<int>(),
-                   2);
-    set.add_sprite(ghost3, model_.get_ghost3().get_position().into<int>(),
-                   2);
-    set.add_sprite(ghost4, model_.get_ghost4().get_position().into<int>(),
-                   2);
+    set.add_sprite(pacman, {model_.get_pacman().get_position().into<int>().x,
+            model_.get_pacman().get_position().into<int>().y},
+                    3, ge211::geometry::Transform::scale(1.4));
+
+    set.add_sprite(ghost1, {model_.get_ghost1().get_position().into<int>().x,
+                            model_.get_ghost1().get_position().into<int>().y}
+                    ,2, ge211::geometry::Transform::scale(1.4));
+
+    set.add_sprite(ghost2, {model_.get_ghost2().get_position().into<int>().x
+                            ,model_.get_ghost2().get_position().into<int>().y}
+                    ,2, ge211::geometry::Transform::scale(1.4));
+
+    set.add_sprite(ghost3, {model_.get_ghost3().get_position().into<int>().x
+                            ,model_.get_ghost3().get_position().into<int>().y}
+                    ,2, ge211::geometry::Transform::scale(1.4));
+
+    set.add_sprite(ghost4, {model_.get_ghost4().get_position().into<int>().x
+                            ,model_.get_ghost4().get_position().into<int>().y},
+                   2, ge211::geometry::Transform::scale(1.4));
 
 }
 View::Dimensions

@@ -62,11 +62,18 @@ bool Character::hits_maze_wall(const Block& block)
     //right side of block < left side of ball OR
     //bottom of ball > top of block OR
     //bottom of block > top of ball
-    return !( (position_.x+width_ < block.center().x-block.width/2) ||
+    /*return !( (position_.x+width_ < block.center().x-block.width/2) ||
               (block.center().x+block.width/2 < position_.x-width_) ||
               (position_.y-height_ > block.center().y+block.height/2) ||
+              (block.center().y-block.height/2 > position_.y+height_) );*/
+
+    //position_ = top left
+    return !( (position_.x+width_ < block.center().x-block.width/2) ||
+              (block.center().x+block.width/2 < position_.x) ||
+              (position_.y > block.center().y+block.height/2) ||
               (block.center().y-block.height/2 > position_.y+height_) );
 }
+
 
 void
 Character::set_velocity(float v) {

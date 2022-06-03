@@ -67,6 +67,8 @@ public:
 
     void set_velocity(float v);
 
+
+
 protected:
     float speed_ = 1; //set speed as a constant
     Position position_;

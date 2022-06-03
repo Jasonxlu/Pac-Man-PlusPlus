@@ -15,12 +15,15 @@ private:
     float timer_; //timer until this ghost can respawn.
     float timer_respawn_threshold_ = 10;
     //10 seconds until respawn
-    float base_velocity_ = 50;
+    float base_velocity_ = 75;
+    Position spawn_position_;
 
 public:
 
     ///constructor
     Ghost();
+
+    Ghost(Position initial_position);
 
     void set_alive(bool alive);
 

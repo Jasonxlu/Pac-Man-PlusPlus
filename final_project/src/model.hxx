@@ -19,15 +19,6 @@ class Model
 
     /// PRIVATE FUNCTIONS
 private:
-    // Converts a concrete screen (pixel) position to an abstract board
-    // position.
-    ge211::Posn<int>
-    screen_to_board_(ge211::Posn<int> screen_pos) const;
-
-    // Converts an abstract board position to a concrete screen
-    // position.
-    ge211::Posn<int>
-    board_to_screen(ge211::Posn<int> board_pos) const;
 
 
     /// PUBLIC FUNCTIONS
@@ -66,6 +57,16 @@ public:
     /// kills a ghost. Puts it back in the cage
     void kill_ghost(Ghost ghost) {};
 
+    // Converts a concrete screen (pixel) position to an abstract board
+    // position.
+    ge211::Posn<int>
+    screen_to_board_(ge211::Posn<int> screen_pos) const;
+
+    // Converts an abstract board position to a concrete screen
+    // position.
+    ge211::Posn<int>
+    board_to_screen(ge211::Posn<int> board_pos) const;
+
     /// maze[pacman position] = regular pellet --> checks if maze num_pellets
     /// = 0. If so, it ends the round.
     /// if it's a power pellet, sets pacman is_powered and sets power timer.
@@ -89,6 +90,7 @@ public:
     Ghost get_ghost4() const {
         return g4_;
     }
+
 
     /// PRIVATE VARIABLES
 private:

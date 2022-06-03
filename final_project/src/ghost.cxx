@@ -5,11 +5,18 @@
 #include "ghost.hxx"
 
 Ghost::Ghost() :
-        Character({400,250}, 10,
-                  10, {1,0}, 50),
-        vulnerable_(false),
+        Ghost({400,250})
+{
+    //call parent constructor in initializer list
+}
+//
+Ghost::Ghost(Position initial_position) :
+        Character(initial_position, 30,
+                  30, {1,0}, 75),
+        vulnerable_(true),
         alive_(true),
-        timer_(0)
+        timer_(0),
+        spawn_position_(initial_position)
 {
     //call parent constructor in initializer list
 }
@@ -26,7 +33,7 @@ void Ghost::set_alive(bool alive)
     if(!alive) { //set alive to false (kill ghost)
         velocity_=0;
         direction_ = {0,-1}; //go up
-        position_={100,100};
+        position_=spawn_position_;
     }
     timer_ = 0;
 }
@@ -37,7 +44,7 @@ void Ghost::update_timer(float dt) {
     if(timer_ >= timer_respawn_threshold_) {
         timer_ = 0;
         alive_ = true;
-        velocity_ = base_velocity_;
+        velocity_ =base_velocity_;
     }
 }
 
@@ -87,8 +94,6 @@ Ghost::hit_wall(Maze m, int random_int_bounded, ge211::Posn<int>
 
     for(Dimensions d : possible_directions_randomized) {
         if(m[current_maze_posn + d] != Tile::wall) {
-            printf("MOVING IN THE {%d,%d} direction\n",
-                   d.width, d.height);
             //check moving in that direction.
             direction_ = d; //if moving in that direction is ok, set the
             // direction to that direction.
