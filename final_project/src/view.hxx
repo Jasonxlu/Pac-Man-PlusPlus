@@ -19,6 +19,8 @@ public:
 
     void draw(ge211::Sprite_set& set);
 
+    Transform get_transform_pacman(Dimensions);
+
     // Converts an abstract board position to a concrete screen
     // position.
     Position
@@ -43,6 +45,12 @@ private:
     ge211::Image_sprite ghost2;
     ge211::Image_sprite ghost3;
     ge211::Image_sprite ghost4;
+    ge211::Font sans30;
+    ge211::Image_sprite pellet;
+    ge211::Text_sprite score;
+    ge211::Text_sprite lives;
+    ge211::Text_sprite round;
+
 
 
 };

@@ -12,8 +12,8 @@ Ghost::Ghost() :
 //
 Ghost::Ghost(Position initial_position) :
         Character(initial_position, 30,
-                  30, {1,0}, 75),
-        vulnerable_(true),
+                  30, {1,0}, 50),
+        vulnerable_(false),
         alive_(true),
         timer_(0),
         spawn_position_(initial_position)

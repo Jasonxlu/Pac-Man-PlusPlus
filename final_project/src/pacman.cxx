@@ -11,8 +11,8 @@ Pacman::Pacman() :
 }
 
 Pacman::Pacman(Position initial_position) :
-        Character(initial_position, 20,
-                  20, {0,0}, 0),
+        Character(initial_position, 21,
+                  23, {0,0}, 0),
         is_powered_(false),
         alive_(true)
 {
@@ -60,6 +60,6 @@ Pacman::next(double dt) {
 void
 Pacman::update_direction(Dimensions d) {
     direction_ = d;
-    velocity_ = 100;
+    velocity_ = 125;
     //Todo: Does not work for some reasons
 }

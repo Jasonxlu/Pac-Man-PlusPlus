@@ -67,6 +67,9 @@ public:
 
     void set_velocity(float v);
 
+    Dimensions get_direction() {
+        return direction_;
+    }
 
 
 protected:

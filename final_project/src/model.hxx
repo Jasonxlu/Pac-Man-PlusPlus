@@ -46,9 +46,8 @@ public:
     void
     on_frame(double dt);
 
-    /// Sets round over
-    void
-    set_round_over(bool over);
+    /// Sets round over and increments the round #.
+    void increment_round();
 
     /// This asks if the pacman hits a ghost.
     bool pacman_overlaps_ghost(Pacman p, Ghost g);
@@ -73,7 +72,7 @@ public:
     /// = 0. If so, it ends the round.
     /// if it's a power pellet, sets pacman is_powered and sets power timer.
     /// calls maze.hit_pellet(maze position) in both cases.
-    void overlaps_pellet() {};
+    bool pacman_overlaps_pellet();
 
     Maze maze_() const;
 
@@ -91,6 +90,25 @@ public:
     }
     Ghost get_ghost4() const {
         return g4_;
+    }
+
+    void decrement_pacman_lives();
+
+    ///TESTING FUNCTIONS
+    void set_tile(Position p, Tile t) {
+        m_[p.into<int>()] = t;
+    }
+    void set_ghost(int num_ghost, Ghost g) {
+        switch(num_ghost) {
+        case 1:
+            g1_ = g;
+        case 2:
+            g2_ = g;
+        case 3:
+            g3_ = g;
+        case 4:
+            g4_ = g;
+        }
     }
 
 
@@ -111,6 +129,10 @@ private:
     std::vector<ge211::Posn<int>> maze_walls_;
 
     int maze_size_;
+
+    int round_number_ = 0;
+    int num_rounds_;
+    int pacman_lives_ = 3;
 
     ///PUBLIC VARIABLES
 public:

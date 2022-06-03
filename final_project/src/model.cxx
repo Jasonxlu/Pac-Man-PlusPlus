@@ -7,14 +7,19 @@ Model::Model()
 Model::Model(int width, int height, int maze_size)
             : game_over_(false),
             m_({width, height}),
-            pacman_({352,320}),
+            pacman_({352,322}),
             g1_({352,224}),
             g2_({352,256}),
             g3_({384,224}),
             g4_({384,256}),
             maze_size_(maze_size),
+            num_rounds_(3),
             random_direction_source(0, 4)
 {
+
+    Maze m2_ = Maze({width,height});
+    Maze m3_ = Maze({width,height});
+
     /// Set the outer border
     for (int x = 0; x < m_.dimensions().width; x++) {
         for (int y = 0; y < m_.dimensions().height; y++) {
@@ -22,6 +27,8 @@ Model::Model(int width, int height, int maze_size)
                 x == m_.dimensions().width - 1
                 || y == m_.dimensions().height - 1) {
                 m_[{x,y}] = Tile::wall;
+                m2_[{x,y}] = Tile::wall;
+                m3_[{x,y}] = Tile::wall;
             }
         }
     }
@@ -36,6 +43,8 @@ Model::Model(int width, int height, int maze_size)
                 if(!(x>=11 && x<=12 && y==6))
                 {
                     m_[{x,y}] = Tile::wall;
+                    m2_[{x,y}] = Tile::wall;
+                    m3_[{x,y}] = Tile::wall;
                 }
             }
         }
@@ -187,39 +196,152 @@ Model::Model(int width, int height, int maze_size)
     m_[{15,14}] = Tile::wall;
 
 
+    m_.set_pellets();
 
+    // Maze 2
+    m2_[{10,1}] = Tile::wall;
+    m2_[{11,1}] = Tile::wall;
+    m2_[{12,1}] = Tile::wall;
+    m2_[{13,1}] = Tile::wall;
 
+    m2_[{2,2}] = Tile::wall;
+    m2_[{3,2}] = Tile::wall;
+    m2_[{4,2}] = Tile::wall;
+    m2_[{6,2}] = Tile::wall;
+    m2_[{8,2}] = Tile::wall;
+    m2_[{15,2}] = Tile::wall;
+    m2_[{17,2}] = Tile::wall;
+    m2_[{19,2}] = Tile::wall;
+    m2_[{20,2}] = Tile::wall;
+    m2_[{21,2}] = Tile::wall;
 
+    m2_[{2,3}] = Tile::wall;
+    m2_[{3,3}] = Tile::wall;
+    m2_[{4,3}] = Tile::wall;
+    m2_[{6,3}] = Tile::wall;
+    m2_[{8,3}] = Tile::wall;
+    m2_[{15,3}] = Tile::wall;
+    m2_[{17,3}] = Tile::wall;
+    m2_[{19,3}] = Tile::wall;
+    m2_[{20,3}] = Tile::wall;
+    m2_[{21,3}] = Tile::wall;
+    m2_[{10,3}] = Tile::wall;
+    m2_[{11,3}] = Tile::wall;
+    m2_[{12,3}] = Tile::wall;
+    m2_[{13,3}] = Tile::wall;
 
+    m2_[{2,4}] = Tile::wall;
+    m2_[{3,4}] = Tile::wall;
+    m2_[{4,4}] = Tile::wall;
+    m2_[{6,4}] = Tile::wall;
+    m2_[{8,4}] = Tile::wall;
+    m2_[{15,4}] = Tile::wall;
+    m2_[{17,4}] = Tile::wall;
+    m2_[{19,4}] = Tile::wall;
+    m2_[{20,4}] = Tile::wall;
+    m2_[{21,4}] = Tile::wall;
+    m2_[{10,4}] = Tile::wall;
+    m2_[{11,4}] = Tile::wall;
+    m2_[{12,4}] = Tile::wall;
+    m2_[{13,4}] = Tile::wall;
 
+    m2_[{6,5}] = Tile::wall;
+    m2_[{8,5}] = Tile::wall;
+    m2_[{15,5}] = Tile::wall;
+    m2_[{17,5}] = Tile::wall;
 
+    m2_[{2,6}] = Tile::wall;
+    m2_[{3,6}] = Tile::wall;
+    m2_[{4,6}] = Tile::wall;
+    m2_[{5,6}] = Tile::wall;
+    m2_[{6,6}] = Tile::wall;
+    m2_[{8,6}] = Tile::wall;
+    m2_[{15,6}] = Tile::wall;
+    m2_[{17,6}] = Tile::wall;
+    m2_[{18,6}] = Tile::wall;
+    m2_[{19,6}] = Tile::wall;
+    m2_[{20,6}] = Tile::wall;
+    m2_[{21,6}] = Tile::wall;
 
+    m2_[{6,7}] = Tile::wall;
+    m2_[{8,7}] = Tile::wall;
+    m2_[{15,7}] = Tile::wall;
+    m2_[{17,7}] = Tile::wall;
+
+    m2_[{2,8}] = Tile::wall;
+    m2_[{4,8}] = Tile::wall;
+    m2_[{6,8}] = Tile::wall;
+    m2_[{8,8}] = Tile::wall;
+    m2_[{15,8}] = Tile::wall;
+    m2_[{17,8}] = Tile::wall;
+    m2_[{19,8}] = Tile::wall;
+    m2_[{21,8}] = Tile::wall;
+
+    m2_[{2,9}] = Tile::wall;
+    m2_[{4,9}] = Tile::wall;
+    m2_[{6,9}] = Tile::wall;
+    m2_[{8,9}] = Tile::wall;
+    m2_[{15,9}] = Tile::wall;
+    m2_[{17,9}] = Tile::wall;
+    m2_[{19,9}] = Tile::wall;
+    m2_[{21,9}] = Tile::wall;
+
+    m2_[{2,10}] = Tile::wall;
+    m2_[{4,10}] = Tile::wall;
+    m2_[{19,10}] = Tile::wall;
+    m2_[{21,10}] = Tile::wall;
+
+    m2_[{2,11}] = Tile::wall;
+    m2_[{4,11}] = Tile::wall;
+    m2_[{6,11}] = Tile::wall;
+    m2_[{7,11}] = Tile::wall;
+    m2_[{8,11}] = Tile::wall;
+    m2_[{9,11}] = Tile::wall;
+    m2_[{10,11}] = Tile::wall;
+    m2_[{11,11}] = Tile::wall;
+    m2_[{12,11}] = Tile::wall;
+    m2_[{13,11}] = Tile::wall;
+    m2_[{14,11}] = Tile::wall;
+    m2_[{15,11}] = Tile::wall;
+    m2_[{16,11}] = Tile::wall;
+    m2_[{17,11}] = Tile::wall;
+    m2_[{19,11}] = Tile::wall;
+    m2_[{21,11}] = Tile::wall;
+
+    m2_[{10,12}] = Tile::wall;
+    m2_[{11,12}] = Tile::wall;
+    m2_[{12,12}] = Tile::wall;
+    m2_[{13,12}] = Tile::wall;
+
+    m2_[{2,13}] = Tile::wall;
+    m2_[{3,13}] = Tile::wall;
+    m2_[{4,13}] = Tile::wall;
+    m2_[{5,13}] = Tile::wall;
+    m2_[{6,13}] = Tile::wall;
+    m2_[{7,13}] = Tile::wall;
+    m2_[{8,13}] = Tile::wall;
+    m2_[{10,13}] = Tile::wall;
+    m2_[{11,13}] = Tile::wall;
+    m2_[{12,13}] = Tile::wall;
+    m2_[{13,13}] = Tile::wall;
+    m2_[{15,13}] = Tile::wall;
+    m2_[{16,13}] = Tile::wall;
+    m2_[{17,13}] = Tile::wall;
+    m2_[{18,13}] = Tile::wall;
+    m2_[{19,13}] = Tile::wall;
+    m2_[{20,13}] = Tile::wall;
+    m2_[{21,13}] = Tile::wall;
+
+    m2_.set_pellets();
+
+    m_ = m2_;
     maze_walls_ = m_.get_maze_walls();
 }
 
-/*
-bool Model::character_hits_screen_wall(Character c) {
-    return (c.get_position().x < screen_dims.width &&
-        c.get_position().x > 0 &&
-        c.get_position().y < screen_dims.height &&
-        c.get_position().y > 0);
-}
- */
-
-
 bool Model::character_hits_maze_wall(Character c) {
 
-    //this won't work because it's just looking at the center.
-    /*
-    //check if the tile at this character is a wall
-    if(m_[screen_to_board_(c.get_position().into<int>())]
-            == Tile::wall) {
-        return true;
-    }
-    return false;
-     */
 
-    //loop thru all maze walls and ask if character is inside
+    //loop through all maze walls and ask if character is inside
     for(ge211::Posn<int> p: maze_walls_) {
         //check if c hits a wall that is positioned at p
         //and has width of 8 and height of 8 (hardcoded)
@@ -234,6 +356,17 @@ bool Model::character_hits_maze_wall(Character c) {
     return false;
 }
 
+bool Model::pacman_overlaps_pellet() {
+    Posn<int> pacman_board_pos =
+            screen_to_board_(pacman_.get_position().into<int>());
+    if(m_[pacman_board_pos]
+       == Tile::pellet) {
+        m_.destroy_pellet(pacman_board_pos);
+        return true;
+    }
+    return false;
+}
+
 bool Model::pacman_overlaps_ghost(Pacman p, Ghost g)
 {
     //if pacman hits ghost, call pacman hit_ghost(the ghost).
@@ -243,6 +376,24 @@ bool Model::pacman_overlaps_ghost(Pacman p, Ghost g)
         return true;
     }
     return false;
+}
+
+void Model::increment_round() {
+    round_number_++;
+    if(round_number_ >= num_rounds_) {
+        game_over_ = true;
+    }
+    //reset the maze walls variable
+    maze_walls_ = m_.get_maze_walls();
+}
+
+void Model::decrement_pacman_lives() {
+    pacman_lives_--;
+    if(pacman_lives_ <= 0) { //game over
+        game_over_ = true;
+        return;
+    }
+    pacman_ = Pacman({352,322}); //reset pacman
 }
 
 void Model::on_frame(double dt)
@@ -312,7 +463,7 @@ void Model::on_frame(double dt)
             // false if pacman dies from the ghost
             g1_.set_alive(false);
         } else {
-            game_over_ = true;
+            decrement_pacman_lives();
             return; //return immediately if game over - don't update anything
         }
     }
@@ -322,7 +473,7 @@ void Model::on_frame(double dt)
             // false if pacman dies from the ghost
             g2_.set_alive(false);
         } else {
-            game_over_ = true;
+            decrement_pacman_lives();
             return; //return immediately if game over - don't update anything
         }
     }
@@ -332,7 +483,7 @@ void Model::on_frame(double dt)
             // false if pacman dies from the ghost
             g3_.set_alive(false);
         } else {
-            game_over_ = true;
+            decrement_pacman_lives();
             return; //return immediately if game over - don't update anything
         }
     }
@@ -342,17 +493,17 @@ void Model::on_frame(double dt)
             // false if pacman dies from the ghost
             g4_.set_alive(false);
         } else {
-            game_over_ = true;
+            decrement_pacman_lives();
             return; //return immediately if game over - don't update anything
         }
     }
 
 
-    //TODO:check eat pellet
-    // if(ball_next.destroy_brick(bricks)) {
-    //     ball.reflect_vertical();
-    //     ball.velocity.width+=random_boost_source.next();
-    // }
+    if(pacman_overlaps_pellet()) {
+        if(m_.all_pellets_eaten()) {
+            increment_round();
+        }
+    }
 
     //printf("update_pacman: %d", update_pacman);
     if(update_pacman) {
@@ -386,5 +537,10 @@ Model::board_to_screen(ge211::Posn<int> pos) const
 
 void
 Model::update_pacman_direction(Dimensions d) {
-    pacman_.update_direction(d);
+    if(!game_over_) {
+        pacman_.update_direction(d);
+    }
 }
+
+
+///TESTING FUNCTIONS

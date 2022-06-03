@@ -34,6 +34,7 @@ private:
     Position_set pellets_;
     Position_set power_pellets_;
     Position_set spawn_points_;
+    int num_pellets_;
     // INVARIANT: (walls_ & pellets_ & power_pellets_).empty()
 
 
@@ -70,13 +71,22 @@ public:
     ///  - throws `ge211::Client_logic_error` if `!good_position(pos)`.
     reference operator[](Position pos);
 
-    std::vector<Position> get_maze_walls(); //TODO: overhaul
+    std::vector<Position> get_maze_walls(); //TODO: overhaul? Maybe it's ok
+    std::vector<Position> get_maze_pellets();
+
+
+    /// Sets the given position to a path.
+    /// Can be used to "destroy" pellets and power pellets!
+    void destroy_pellet(Position p);
 
 
     /// Returns a reference to a `std::vector` containing all four "unit
     /// direction vectors".
     static std::vector<Dimensions> all_directions();
 
+    void set_pellets();
+
+    bool all_pellets_eaten();
 
 };
 

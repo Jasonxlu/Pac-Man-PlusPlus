@@ -135,6 +135,55 @@ std::vector<Maze::Position> Maze::get_maze_walls() {
     return walls;
 }
 
+void
+Maze::destroy_pellet(Position p)
+{
+    Tile before = get_(p);
+    set_(p,Tile::path);
+
+    //check before = pellet and after = just a path
+    //if so, decrement num_pellets.
+    if(before == Tile::pellet && get_(p) == Tile::path ||
+            before == Tile::power_pellet && get_(p) == Tile::path) {
+        num_pellets_--;
+    }
+
+}
+
+
+//returns a vector of positions corresponding to the pellets in the maze.
+std::vector<Maze::Position> Maze::get_maze_pellets() {
+    std::vector<Position> pellets;
+    for(int x=0; x<dims_.width; x++) {
+        for(int y=0; y<dims_.height; y++) {
+
+            if(pellets_[{x,y}]) {
+                pellets.push_back({x,y});
+            }
+        }
+    }
+    return pellets;
+}
+
+
+void
+Maze::set_pellets() {
+    for(int i=0; i<dims_.width; i++) {
+        for(int j=0; j<dims_.height; j++) {
+            if(get_({i,j}) == Tile::path) {
+                set_({i,j}, Tile::pellet);
+                num_pellets_++;
+            }
+        }
+    }
+}
+
+bool
+Maze::all_pellets_eaten()
+{
+    return num_pellets_ == 0;
+}
+
 
 
 //maze positions
