@@ -182,6 +182,21 @@ Maze::all_pellets_eaten()
     return (num_pellets_ == 0);
 }
 
+bool
+Maze::operator==(Maze b)
+{
+    return (walls_ == b.walls_ &&
+            pellets_ == b.pellets_ &&
+            power_pellets_ == b.power_pellets_ &&
+            spawn_points_ == b.spawn_points_ &&
+            num_pellets_ == b.num_pellets_);
+}
+
+bool
+Maze::operator!=(Maze b)
+{
+    return !(*this == b);
+}
 
 
 //maze positions

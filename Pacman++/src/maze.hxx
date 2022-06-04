@@ -88,6 +88,23 @@ public:
 
     bool all_pellets_eaten();
 
+    int get_pellets()
+    {
+        return num_pellets_;
+    }
+
+    void dec_num_pellets()
+    {
+        num_pellets_--;
+    }
+
+    bool
+    operator==(Maze b);
+
+    bool
+    operator!=(Maze b);
+
+
 };
 
 
@@ -117,6 +134,7 @@ public:
 
     /// Returns the value of the reference.
     operator Tile() const noexcept;
+
 
 private:
     friend class Maze;

@@ -137,6 +137,11 @@ public:
         }
     }
 
+    Maze get_maze()
+    {
+        return m_;
+    }
+
 
     /// PRIVATE VARIABLES
 private:
@@ -176,6 +181,11 @@ public:
     static bool get_ate()
     {
         return ate;
+    }
+
+    void set_maze(Maze m)
+    {
+        m_ = m;
     }
 
 };
