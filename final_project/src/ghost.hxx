@@ -10,12 +10,15 @@
 class Ghost : public Character {
 
 private:
+    float vulnerable_velocity_;
     bool vulnerable_;
     bool alive_;
-    float timer_; //timer until this ghost can respawn.
-    float timer_respawn_threshold_ = 10;
-    //10 seconds until respawn
-    float base_velocity_ = 100;
+    float timer_alive_; //timer until this ghost can respawn.
+    float timer_vulnerable_; //timer until this ghost is no longer vulnerable
+    float timer_respawn_threshold_ = 20;
+    float timer_vulnerable_threshold_ = 20;
+    //20 seconds (or whatever it is) until respawn
+    float base_velocity_ = 125;
     Position spawn_position_;
 
 public:
@@ -38,4 +41,15 @@ public:
     void hit_wall(Maze m, int random_int_bounded,
                   ge211::Posn<int> current_maze_posn);
 
+
+    /// Compares two `Ghost`s for equality. This may be useful for testing.
+    ///
+    /// Two `Ghost`s are equal if all their member variables are pairwise
+    /// equal.
+    bool
+    operator==(Ghost b);
+
+    /// Inequality for `Ball`s.
+    bool
+    operator!=(Ghost b);
 };

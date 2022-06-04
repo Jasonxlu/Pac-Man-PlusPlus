@@ -3,6 +3,7 @@
 Controller::Controller()
         : model_(24,16, 32),
         view_(model_)
+
 { }
 //NOTE: Brennan added maze size to constructor
 
@@ -59,5 +60,5 @@ Controller::initial_window_title() const
 void
 Controller::on_frame(double dt)
 {
-    model_.on_frame(dt);
+    model_.on_frame(0.01);
 }

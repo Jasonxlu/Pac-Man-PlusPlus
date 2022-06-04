@@ -1,9 +1,5 @@
 #include "model.hxx"
 
-Model::Model()
-        : Model(24,16, 32)
-{}
-
 Model::Model(int width, int height, int maze_size)
             : game_over_(false),
             m_({width, height}),
@@ -13,10 +9,8 @@ Model::Model(int width, int height, int maze_size)
             g3_({384,224}),
             g4_({384,256}),
             maze_size_(maze_size),
-            num_rounds_(3),
             random_direction_source(0, 4)
 {
-
     Maze m2_ = Maze({width,height});
     Maze m3_ = Maze({width,height});
 
@@ -195,6 +189,20 @@ Model::Model(int width, int height, int maze_size)
     m_[{8,14}] = Tile::wall;
     m_[{15,14}] = Tile::wall;
 
+    //set power pellets
+    m_[{3,10}] = Tile::power_pellet;
+    m_[{6,4}] = Tile::power_pellet;
+    m_[{17,4}] = Tile::power_pellet;
+    m_[{20,10}] = Tile::power_pellet;
+
+    //set spawn points
+    m_[{11,7}] = Tile::spawn_point;
+    m_[{12,7}] = Tile::spawn_point;
+    m_[{11,8}] = Tile::spawn_point;
+    m_[{12,8}] = Tile::spawn_point;
+    m_[{11,10}] = Tile::spawn_point;
+
+
 
     m_.set_pellets();
 
@@ -332,10 +340,180 @@ Model::Model(int width, int height, int maze_size)
     m2_[{20,13}] = Tile::wall;
     m2_[{21,13}] = Tile::wall;
 
+    //set power pellets and spawn points
+    m2_[{5,5}] = Tile::power_pellet;
+    m2_[{9,12}] = Tile::power_pellet;
+    m2_[{18,5}] = Tile::power_pellet;
+    m2_[{14,12}] = Tile::power_pellet;
+
+    m2_[{11,10}] = Tile::spawn_point;
+    m2_[{11,7}] = Tile::spawn_point;
+    m2_[{12,7}] = Tile::spawn_point;
+    m2_[{11,8}] = Tile::spawn_point;
+    m2_[{12,8}] = Tile::spawn_point;
+
     m2_.set_pellets();
 
-    m_ = m2_;
+    m3_[{2,2}] = Tile::wall;
+    m3_[{3,2}] = Tile::wall;
+    m3_[{5,2}] = Tile::wall;
+    m3_[{7,2}] = Tile::wall;
+    m3_[{8,2}] = Tile::wall;
+    m3_[{9,2}] = Tile::wall;
+    m3_[{11,2}] = Tile::wall;
+    m3_[{12,2}] = Tile::wall;
+    m3_[{14,2}] = Tile::wall;
+    m3_[{15,2}] = Tile::wall;
+    m3_[{16,2}] = Tile::wall;
+    m3_[{18,2}] = Tile::wall;
+    m3_[{20,2}] = Tile::wall;
+    m3_[{21,2}] = Tile::wall;
+
+    m3_[{2,3}] = Tile::wall;
+    m3_[{3,3}] = Tile::wall;
+    m3_[{5,3}] = Tile::wall;
+    m3_[{11,3}] = Tile::wall;
+    m3_[{12,3}] = Tile::wall;
+    m3_[{18,3}] = Tile::wall;
+    m3_[{20,3}] = Tile::wall;
+    m3_[{21,3}] = Tile::wall;
+
+    m3_[{2,4}] = Tile::wall;
+    m3_[{3,4}] = Tile::wall;
+    m3_[{5,4}] = Tile::wall;
+    m3_[{7,4}] = Tile::wall;
+    m3_[{8,4}] = Tile::wall;
+    m3_[{10,4}] = Tile::wall;
+    m3_[{11,4}] = Tile::wall;
+    m3_[{12,4}] = Tile::wall;
+    m3_[{13,4}] = Tile::wall;
+    m3_[{15,4}] = Tile::wall;
+    m3_[{16,4}] = Tile::wall;
+    m3_[{18,4}] = Tile::wall;
+    m3_[{20,4}] = Tile::wall;
+    m3_[{21,4}] = Tile::wall;
+
+    m3_[{5,5}] = Tile::wall;
+    m3_[{7,5}] = Tile::wall;
+    m3_[{8,5}] = Tile::wall;
+    m3_[{15,5}] = Tile::wall;
+    m3_[{16,5}] = Tile::wall;
+    m3_[{18,5}] = Tile::wall;
+
+    m3_[{1,6}] = Tile::wall;
+    m3_[{2,6}] = Tile::wall;
+    m3_[{4,6}] = Tile::wall;
+    m3_[{5,6}] = Tile::wall;
+    m3_[{7,6}] = Tile::wall;
+    m3_[{8,6}] = Tile::wall;
+    m3_[{15,6}] = Tile::wall;
+    m3_[{16,6}] = Tile::wall;
+    m3_[{18,6}] = Tile::wall;
+    m3_[{19,6}] = Tile::wall;
+    m3_[{21,6}] = Tile::wall;
+    m3_[{22,6}] = Tile::wall;
+
+    m3_[{1,7}] = Tile::wall;
+    m3_[{2,7}] = Tile::wall;
+    m3_[{4,7}] = Tile::wall;
+    m3_[{5,7}] = Tile::wall;
+    m3_[{7,7}] = Tile::wall;
+    m3_[{8,7}] = Tile::wall;
+    m3_[{15,7}] = Tile::wall;
+    m3_[{16,7}] = Tile::wall;
+    m3_[{18,7}] = Tile::wall;
+    m3_[{19,7}] = Tile::wall;
+    m3_[{21,7}] = Tile::wall;
+    m3_[{22,7}] = Tile::wall;
+
+    m3_[{5,8}] = Tile::wall;
+    m3_[{7,8}] = Tile::wall;
+    m3_[{8,8}] = Tile::wall;
+    m3_[{15,8}] = Tile::wall;
+    m3_[{16,8}] = Tile::wall;
+    m3_[{18,8}] = Tile::wall;
+
+    m3_[{2,9}] = Tile::wall;
+    m3_[{3,9}] = Tile::wall;
+    m3_[{5,9}] = Tile::wall;
+    m3_[{7,9}] = Tile::wall;
+    m3_[{8,9}] = Tile::wall;
+    m3_[{15,9}] = Tile::wall;
+    m3_[{16,9}] = Tile::wall;
+    m3_[{18,9}] = Tile::wall;
+    m3_[{20,9}] = Tile::wall;
+    m3_[{21,9}] = Tile::wall;
+
+    m3_[{2,10}] = Tile::wall;
+    m3_[{3,10}] = Tile::wall;
+    m3_[{5,10}] = Tile::wall;
+    m3_[{18,10}] = Tile::wall;
+    m3_[{20,10}] = Tile::wall;
+    m3_[{21,10}] = Tile::wall;
+
+    m3_[{2,11}] = Tile::wall;
+    m3_[{3,11}] = Tile::wall;
+    m3_[{5,11}] = Tile::wall;
+    m3_[{7,11}] = Tile::wall;
+    m3_[{8,11}] = Tile::wall;
+    m3_[{9,11}] = Tile::wall;
+    m3_[{10,11}] = Tile::wall;
+    m3_[{11,11}] = Tile::wall;
+    m3_[{12,11}] = Tile::wall;
+    m3_[{13,11}] = Tile::wall;
+    m3_[{14,11}] = Tile::wall;
+    m3_[{15,11}] = Tile::wall;
+    m3_[{16,11}] = Tile::wall;
+    m3_[{18,11}] = Tile::wall;
+    m3_[{20,11}] = Tile::wall;
+    m3_[{21,11}] = Tile::wall;
+
+    m3_[{2,12}] = Tile::wall;
+    m3_[{21,12}] = Tile::wall;
+
+    m3_[{2,13}] = Tile::wall;
+    m3_[{4,13}] = Tile::wall;
+    m3_[{5,13}] = Tile::wall;
+    m3_[{6,13}] = Tile::wall;
+    m3_[{7,13}] = Tile::wall;
+    m3_[{8,13}] = Tile::wall;
+    m3_[{9,13}] = Tile::wall;
+    m3_[{10,13}] = Tile::wall;
+    m3_[{11,13}] = Tile::wall;
+    m3_[{12,13}] = Tile::wall;
+    m3_[{13,13}] = Tile::wall;
+    m3_[{14,13}] = Tile::wall;
+    m3_[{15,13}] = Tile::wall;
+    m3_[{16,13}] = Tile::wall;
+    m3_[{17,13}] = Tile::wall;
+    m3_[{18,13}] = Tile::wall;
+    m3_[{19,13}] = Tile::wall;
+    m3_[{21,13}] = Tile::wall;
+
+
+
+    //set power pellets and spawn points
+    m3_[{1,5}] = Tile::power_pellet;
+    m3_[{3,12}] = Tile::power_pellet;
+    m3_[{22,5}] = Tile::power_pellet;
+    m3_[{20,12}] = Tile::power_pellet;
+
+    m3_[{11,10}] = Tile::spawn_point;
+    m3_[{11,7}] = Tile::spawn_point;
+    m3_[{12,7}] = Tile::spawn_point;
+    m3_[{11,8}] = Tile::spawn_point;
+    m3_[{12,8}] = Tile::spawn_point;
+    m3_.set_pellets();
+
+    mazes_.push_back(m_);
+    mazes_.push_back(m2_);
+    mazes_.push_back(m3_);
+
     maze_walls_ = m_.get_maze_walls();
+
+    set_level(round_num);
+    reset_maze_change();
+
 }
 
 bool Model::character_hits_maze_wall(Character c) {
@@ -361,10 +539,24 @@ bool Model::pacman_overlaps_pellet() {
             screen_to_board_(pacman_.get_position().into<int>());
     if(m_[pacman_board_pos]
        == Tile::pellet) {
+        //pacman eat regular pellet
         m_.destroy_pellet(pacman_board_pos);
         increment_score(pellet_score_); //add pellet score to score
+        ate = true;
+        return true;
+    } else if(m_[pacman_board_pos] == Tile::power_pellet) {
+        //pacman eat power pellet
+        m_.destroy_pellet(pacman_board_pos);
+        increment_score(power_pellet_score_); //add power pellet score to score
+        g1_.set_vulnerable(true);
+        g2_.set_vulnerable(true);
+        g3_.set_vulnerable(true);
+        g4_.set_vulnerable(true);
+        //set ghosts to vulnerable
+        ate = true;
         return true;
     }
+    ate = false;
     return false;
 }
 
@@ -385,11 +577,8 @@ void Model::increment_score(int i) {
 
 void Model::increment_round() {
     round_number_++;
-    if(round_number_ >= num_rounds_) {
-        game_over_ = true;
-    }
-    //reset the maze walls variable
-    maze_walls_ = m_.get_maze_walls();
+    m_ = mazes_[round_number_%3]; //change maze
+    reset_maze_change();
 }
 
 void Model::decrement_pacman_lives() {
@@ -406,6 +595,24 @@ void Model::decrement_pacman_lives() {
     g3_ = Ghost({384,224});
     g4_ = Ghost({384,256});
 }
+
+void Model::reset_maze_change()
+{
+    pacman_ = Pacman({352,322}); //reset pacman and ghosts
+    g1_ = Ghost({352,224});
+    g2_ = Ghost({352,256});
+    g3_ = Ghost({384,224});
+    g4_ = Ghost({384,256});
+
+    //reset the maze walls variable
+    maze_walls_ = m_.get_maze_walls();
+}
+
+
+void Model::set_level(int lvl) {
+        m_ = mazes_[lvl%3];
+}
+
 
 void Model::on_frame(double dt)
 {
@@ -521,7 +728,6 @@ void Model::on_frame(double dt)
         }
     }
 
-    //printf("update_pacman: %d", update_pacman);
     if(update_pacman) {
         pacman_ = pacman_.next(dt); //store the result in the pacman for real
     }
@@ -532,11 +738,11 @@ void Model::on_frame(double dt)
     g4_ = g4_.next(dt);
 }
 
-Maze
-Model::maze_() const
-{
-    return m_;
-}
+// Maze
+// Model::maze_() const
+// {
+//     return m_;
+// }
 
 ge211::Posn<int>
 Model::screen_to_board_(ge211::Posn<int> pos) const
@@ -557,6 +763,9 @@ Model::update_pacman_direction(Dimensions d) {
         pacman_.update_direction(d);
     }
 }
+
+int Model::round_num = 0;
+bool Model::ate = false;
 
 ///GETTERS
 /*

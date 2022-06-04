@@ -12,10 +12,12 @@ Ghost::Ghost() :
 //
 Ghost::Ghost(Position initial_position) :
         Character(initial_position, 30,
-                  30, {1,0}, 50),
-        vulnerable_(true),
+                  30, {1,0}, 75),
+        vulnerable_velocity_(50),
+        vulnerable_(false),
         alive_(true),
-        timer_(0),
+        timer_alive_(0),
+        timer_vulnerable_(0),
         spawn_position_(initial_position)
 {
     //call parent constructor in initializer list
@@ -25,6 +27,10 @@ Ghost::Ghost(Position initial_position) :
 void
 Ghost::set_vulnerable(bool vulnerable) {
     vulnerable_ = vulnerable;
+    if(vulnerable) { //set vulnerable to true
+        velocity_ = vulnerable_velocity_;
+    }
+    timer_vulnerable_ = 0;
 }
 
 void Ghost::set_alive(bool alive)
@@ -35,16 +41,26 @@ void Ghost::set_alive(bool alive)
         direction_ = {0,-1}; //go up
         position_=spawn_position_;
     }
-    timer_ = 0;
+    timer_alive_ = 0;
 }
 
 
 void Ghost::update_timer(float dt) {
-    timer_ += dt;
-    if(timer_ >= timer_respawn_threshold_) {
-        timer_ = 0;
+    if(!alive_) {
+        timer_alive_ += dt;
+    }
+    if(vulnerable_) {
+        timer_vulnerable_ += dt;
+    }
+    if(timer_alive_ >= timer_respawn_threshold_) {
+        timer_alive_ = 0;
         alive_ = true;
-        velocity_ =base_velocity_;
+        velocity_ = base_velocity_;
+    }
+    if(timer_vulnerable_ >= timer_vulnerable_threshold_) {
+        timer_vulnerable_ = 0;
+        vulnerable_ = false;
+        velocity_ = base_velocity_;
     }
 }
 
@@ -100,4 +116,28 @@ Ghost::hit_wall(Maze m, int random_int_bounded, ge211::Posn<int>
         }
     }
 
+}
+
+
+
+bool
+Ghost::operator==(Ghost b)
+{
+    return (vulnerable_velocity_ == b.vulnerable_velocity_ &&
+        vulnerable_ == b.vulnerable_ &&
+        alive_ == b.alive_ &&
+        timer_alive_ == b.timer_alive_ &&
+        timer_vulnerable_ == b.timer_vulnerable_ &&
+        position_ == b.position_ &&
+        height_ == b.height_ &&
+        width_ == b.width_ &&
+        direction_ == b.direction_ &&
+        velocity_ == b.velocity_
+    );
+}
+
+bool
+Ghost::operator!=(Ghost b)
+{
+    return !(*this == b);
 }

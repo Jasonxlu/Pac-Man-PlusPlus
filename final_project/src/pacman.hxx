@@ -3,25 +3,22 @@
 //
 
 #pragma once
+#include <ge211.hxx>
 
 #include <character.hxx>
-#include <ge211.hxx>
 #include <ghost.hxx>
 
 class Pacman : public Character
 {
 
 private:
-    bool is_powered_;
     bool alive_;
 
 public:
 
     ///constructor
     Pacman();
-    Pacman(Position initial_position);
-
-    void set_powered(bool powered);
+    explicit Pacman(Position initial_position);
 
     bool hit_ghost(Ghost g);
 
@@ -30,5 +27,6 @@ public:
     bool overlaps_ghost(Ghost g);
 
     void update_direction(Dimensions d);
+
 
 };

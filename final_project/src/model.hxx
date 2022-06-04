@@ -4,6 +4,7 @@
 #include "pacman.hxx"
 #include "maze.hxx"
 #include "tile.hxx"
+#include "position_set.hxx"
 
 
 #include <iostream>
@@ -17,27 +18,25 @@ using namespace ge211;
 class Model
 {
 
-    /// PRIVATE FUNCTIONS
-private:
+
+#ifdef CS211_TESTING
+    // When this class is compiled for testing, members of a struct named
+    // Test_access will be allowed to access private members of this class.
+    friend struct Test_access;
+#endif
 
 
     /// PUBLIC FUNCTIONS
 
 public:
 
-    Model();
 
     Model(int width, int height, int maze_size);
-    //Jason: TODO Right here
     //initialize characters here
     //Brennan comment: changed the constructor to be in cxx file
 
     void update_pacman_direction(Dimensions d);
 
-    /// Determines whether the character hits the side of the screen
-    //Jason: TODO: Boolean values are placeholders right now
-    bool
-    character_hits_screen_wall(Character c);
 
     /// Determines whether the character hits the a maze wall
     bool
@@ -74,9 +73,18 @@ public:
     /// calls maze.hit_pellet(maze position) in both cases.
     bool pacman_overlaps_pellet();
 
-    Maze maze_() const;
+    bool  game_over() const{
+        //returns whether or not the game is over (for the view)
+        return game_over_;
+    }
 
+    Maze const& maze_() const {
+        return m_;
+    }
     Pacman get_pacman() const {
+        return pacman_;
+    }
+    Pacman const& pacman() const {
         return pacman_;
     }
     Ghost get_ghost1() const {
@@ -104,6 +112,10 @@ public:
     int get_pacman_lives() const {
         return pacman_lives_;
     }
+
+    void reset_maze_change();
+    void set_level(int lvl);
+
 
     void decrement_pacman_lives();
     void increment_score(int i);
@@ -133,6 +145,8 @@ private:
     Maze m_;
     Pacman pacman_;
 
+    std::vector<Maze> mazes_;
+
     //Dimensions screen_dims;
 
     Ghost g1_;
@@ -143,17 +157,25 @@ private:
     std::vector<ge211::Posn<int>> maze_walls_;
 
     int maze_size_;
-
     int score_ = 0;
     int round_number_ = 0;
-    int num_rounds_;
     int pacman_lives_ = 3;
     int pellet_score_ = 10;
     int power_pellet_score_ = 50;
     int ghost_score_ = 200;
+    static int round_num;
+    static bool ate;
 
     ///PUBLIC VARIABLES
 public:
     // A source of random “boost” values.
     ge211::Random_source<int> random_direction_source;
+    static void set_round_num(int lvl) {
+        round_num = lvl;
+    }
+    static bool get_ate()
+    {
+        return ate;
+    }
+
 };

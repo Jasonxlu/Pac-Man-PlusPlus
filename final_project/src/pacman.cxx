@@ -13,15 +13,9 @@ Pacman::Pacman() :
 Pacman::Pacman(Position initial_position) :
         Character(initial_position, 21,
                   23, {0,0}, 0),
-        is_powered_(false),
         alive_(true)
 {
     //call parent constructor in initializer list
-}
-
-void
-Pacman::set_powered(bool powered) {
-    is_powered_ = powered;
 }
 
 bool Pacman::overlaps_ghost(Ghost g) {
@@ -48,6 +42,7 @@ bool Pacman::hit_ghost(Ghost g) {
 
 }
 
+
 Pacman
 Pacman::next(double dt) {
 
@@ -60,6 +55,5 @@ Pacman::next(double dt) {
 void
 Pacman::update_direction(Dimensions d) {
     direction_ = d;
-    velocity_ = 125;
-    //Todo: Does not work for some reasons
+    velocity_ = 150;
 }

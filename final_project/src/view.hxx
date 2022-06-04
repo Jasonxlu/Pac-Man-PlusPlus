@@ -46,11 +46,19 @@ private:
     ge211::Image_sprite ghost3;
     ge211::Image_sprite ghost4;
     ge211::Font sans30;
+    ge211::Font sans30_massive;
     ge211::Image_sprite pellet;
     ge211::Text_sprite score;
     ge211::Text_sprite lives;
     ge211::Text_sprite round;
-
+    ge211::Text_sprite game_over;
+    ge211::Image_sprite ghostv;
+    ge211::Image_sprite ghost1nv;
+    ge211::Image_sprite ghost2nv;
+    ge211::Image_sprite ghost3nv;
+    ge211::Image_sprite ghost4nv;
+    ge211::Image_sprite pacman_ate;
+    ge211::Image_sprite pacman_orig;
 
 
 };

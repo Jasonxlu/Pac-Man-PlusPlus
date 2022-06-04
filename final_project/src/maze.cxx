@@ -2,13 +2,9 @@
 #include "maze.hxx"
 
 Maze::Maze(Dimensions dims)
-            : dims_(dims)
-{
-    if (dims_.width < 2 || dims_.height < 2) {
-        throw ge211::Client_logic_error("Board::Board: dims too small");
-    }
-
-}
+            : dims_(dims),
+            num_pellets_(0)
+{}
 
 Maze::Dimensions
 Maze::dimensions() const
@@ -143,8 +139,8 @@ Maze::destroy_pellet(Position p)
 
     //check before = pellet and after = just a path
     //if so, decrement num_pellets.
-    if(before == Tile::pellet && get_(p) == Tile::path ||
-            before == Tile::power_pellet && get_(p) == Tile::path) {
+    if(((before == Tile::pellet) && (get_(p) == Tile::path)) ||
+            ((before == Tile::power_pellet) && (get_(p) == Tile::path))) {
         num_pellets_--;
     }
 
@@ -171,9 +167,11 @@ Maze::set_pellets() {
     for(int i=0; i<dims_.width; i++) {
         for(int j=0; j<dims_.height; j++) {
             if(get_({i,j}) == Tile::path) {
-                set_({i,j}, Tile::pellet);
-                num_pellets_++;
-            }
+                set_({i, j}, Tile::pellet);
+                num_pellets_ += 1;
+            } else if(get_({i,j}) == Tile::power_pellet) {
+                num_pellets_ += 1;
+            }//also add to counter if it's a power pellet
         }
     }
 }
@@ -181,7 +179,7 @@ Maze::set_pellets() {
 bool
 Maze::all_pellets_eaten()
 {
-    return num_pellets_ == 0;
+    return (num_pellets_ == 0);
 }
 
 

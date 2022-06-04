@@ -5,9 +5,10 @@
 //
 // Created by thebr on 5/26/2022.
 //
+#include <ge211.hxx>
+
 #pragma once
 
-#include <ge211.hxx>
 using Block = ge211::Rect<int>;
 
 
@@ -73,7 +74,6 @@ public:
 
 
 protected:
-    float speed_ = 1; //set speed as a constant
     Position position_;
     int height_;
     int width_;
